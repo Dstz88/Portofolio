@@ -1,12 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Menu } from "lucide-react";
+import { Menu, ArrowUpRight } from "lucide-react";
 import MenuOverlay from "./MenuOverlay";
 import { portfolioData } from "@/data/portfolio";
 
 export default function Navbar() {
-  const { personal } = portfolioData;
+  const { personal, contact } = portfolioData;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -63,10 +63,13 @@ export default function Navbar() {
           {/* Right Action / CTA & Mobile Menu Toggle */}
           <div className="flex items-center gap-3">
             <a
-              href="#contact"
-              className="hidden sm:inline-flex items-center justify-center px-5 py-2 rounded-full bg-[#6EE7F9] text-black font-mono text-xs font-bold tracking-wider hover:bg-[#38bdf8] hover:shadow-[0_0_20px_rgba(110,231,249,0.4)] transition-all transform hover:-translate-y-0.5"
+              href={contact.whatsappUrl || "https://wa.me/6287825368112"}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden sm:inline-flex items-center justify-center gap-1.5 px-5 py-2 rounded-full bg-[#6EE7F9] text-black font-mono text-xs font-bold tracking-wider hover:bg-[#38bdf8] hover:shadow-[0_0_20px_rgba(110,231,249,0.4)] transition-all transform hover:-translate-y-0.5"
             >
-              HUBUNGI SAYA
+              <span>HUBUNGI SAYA</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
             </a>
 
             {/* Mobile Hamburger Button */}

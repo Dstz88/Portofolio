@@ -31,7 +31,9 @@ export default function StoryCTA({ opacity, scale }: StoryCTAProps) {
         </a>
 
         <a
-          href="#contact"
+          href="https://wa.me/6287825368112"
+          target="_blank"
+          rel="noopener noreferrer"
           className="px-8 py-4 rounded-full glass-panel hover:bg-white/10 text-white font-semibold text-sm hover:border-[#6EE7F9]/50 transition-all flex items-center gap-2 group"
         >
           <span>Hubungi Saya</span>

@@ -41,11 +41,10 @@ export interface SocialLink {
   iconName: "github" | "linkedin" | "instagram" | "email";
 }
 
-export interface Testimonial {
-  quote: string;
-  author: string;
-  role: string;
-  company: string;
+export interface ApproachStep {
+  number: string;
+  title: string;
+  description: string;
 }
 
 export const portfolioData = {
@@ -61,27 +60,40 @@ export const portfolioData = {
       "Mahasiswa Sistem Informasi",
     ],
     aboutPhilosophy:
-      "Saya merancang dan merekayasa aplikasi web berbasis Laravel dan pengalaman UI/UX yang menggabungkan estetika modern, arsitektur data presisi, dan performa tinggi.",
+      "Saya membangun aplikasi web yang menggabungkan engineering, desain, dan pengalaman pengguna.",
+    aboutSupportingText:
+      "Berfokus pada Laravel, Blade, MySQL, dan UI/UX untuk menghasilkan sistem yang terstruktur, fungsional, dan memiliki pengalaman visual yang konsisten.",
     aboutPillars: [
       {
-        number: "01 / DESAIN",
-        title: "UI/UX & PROTOTYPING",
+        number: "01 / UI/UX DESIGN",
+        title: "UI/UX DESIGN",
         description:
-          "Merancang antarmuka presisi tinggi, wireframe interaktif, dan sistem desain yang mengutamakan pengalaman pengguna.",
+          "Merancang wireframe, prototype, visual hierarchy, design system, dan user flow dengan fokus pada usability dan pengalaman pengguna.",
+        keywords: "Wireframe • Prototype • Design System • User Flow",
       },
       {
-        number: "02 / KODE",
-        title: "LARAVEL & FRONTEND",
+        number: "02 / WEB DEVELOPMENT",
+        title: "WEB DEVELOPMENT",
         description:
-          "Menulis arsitektur Laravel yang bersih, efisien, dan terstruktur dengan Blade, Tailwind CSS, serta integrasi REST API.",
+          "Membangun aplikasi web dengan arsitektur yang terstruktur menggunakan Laravel, PHP, Blade, JavaScript, dan Tailwind CSS.",
+        keywords: "Laravel • PHP • Blade • JavaScript • Tailwind CSS",
       },
       {
-        number: "03 / BASIS DATA",
-        title: "STRUKTUR & BASIS DATA",
+        number: "03 / DATABASE",
+        title: "DATABASE",
         description:
-          "Merancang skema MySQL yang optimal, hubungan tabel terstruktur, dan performa kueri database yang cepat.",
+          "Merancang struktur database relasional yang terorganisir, efisien, dan sesuai dengan kebutuhan sistem menggunakan MySQL.",
+        keywords: "MySQL • Database Design • Relational Database • CRUD",
+      },
+      {
+        number: "04 / SYSTEM ENGINEERING",
+        title: "SYSTEM ENGINEERING",
+        description:
+          "Mengembangkan business logic, authentication, role-based access control, dashboard, dan integrasi API untuk membentuk sistem yang utuh.",
+        keywords: "Authentication • RBAC • Dashboard • API • Business Logic",
       },
     ],
+    aboutSignature: "Design the experience. Engineer the system. Refine every detail.",
   },
 
   contact: {
@@ -97,6 +109,7 @@ export const portfolioData = {
     ctaDescription:
       "Punya proyek web Laravel atau butuh desain UI/UX berdampak tinggi? Hubungi saya dan mari wujudkan visi Anda menjadi kenyataan.",
     resumeUrl: "#",
+    whatsappUrl: "https://wa.me/6287825368112",
   },
 
   socials: [
@@ -146,6 +159,16 @@ export const portfolioData = {
         { name: "Wireframing", level: 92 },
         { name: "Prototyping", level: 90 },
         { name: "Design System", level: 94 },
+      ],
+    },
+    {
+      category: "AI Tools",
+      skills: [
+        { name: "Antigravity", level: 96 },
+        { name: "Opencode", level: 94 },
+        { name: "Codex", level: 95 },
+        { name: "Claude", level: 95 },
+        { name: "9Router", level: 92 },
       ],
     },
     {
@@ -249,30 +272,35 @@ export const portfolioData = {
     },
   ] as TimelineEvent[],
 
-  testimonials: [
+  approach: [
     {
-      quote: "Dhesta i.p menghadirkan hasil aplikasi Laravel dan UI/UX yang sangat terstruktur, bersih, dan sesuai kebutuhan bisnis kami.",
-      author: "Elena Rostova",
-      role: "Product Lead",
-      company: "Apex Digital Labs",
+      number: "01",
+      title: "UNDERSTAND",
+      description:
+        "Memahami kebutuhan sistem, user flow, target pengguna, dan tujuan utama sebelum proses development dimulai.",
     },
     {
-      quote: "Bekerja bersama Dhesta i.p sangat lancar. Wireframe dan prototipe Figma yang dibuat sangat mendetail dan mudah diimplementasikan.",
-      author: "Marcus Chen",
-      role: "Creative Director",
-      company: "Studio Vanguard",
+      number: "02",
+      title: "DESIGN",
+      description:
+        "Merancang wireframe, interface, visual hierarchy, dan user experience menggunakan pendekatan yang berorientasi pada usability.",
     },
     {
-      quote: "Penguasaan baik pada arsitektur Laravel, MySQL, dan UI/UX design. Mengubah ide sistem kompleks menjadi aplikasi web yang user-friendly.",
-      author: "Sarah Jenkins",
-      role: "Founder",
-      company: "Lumina Web Solution",
+      number: "03",
+      title: "BUILD",
+      description:
+        "Mengimplementasikan desain menjadi aplikasi web menggunakan Laravel, Blade, PHP, MySQL, dan teknologi pendukung lainnya.",
     },
-  ] as Testimonial[],
+    {
+      number: "04",
+      title: "REFINE",
+      description:
+        "Melakukan testing, debugging, optimasi interface, dan refinement untuk memastikan sistem berjalan dengan baik dan konsisten.",
+    },
+  ] as ApproachStep[],
 
   bento: {
     badge: "KAPABILITAS & EKOSISTEM",
-    title: "Arsitektur Bento Grid",
     description: "Gambaran ringkas dari toolkit teknologi, metodologi alur kerja, dan kapabilitas kreatif saya.",
     frontendCard: {
       badge: "STAK FRONTEND",

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
-import { ArrowUpRight, FileText, Send, Sparkles } from "lucide-react";
+import { Send, Sparkles } from "lucide-react";
 import confetti from "canvas-confetti";
 import { portfolioData } from "@/data/portfolio";
 
@@ -51,21 +51,14 @@ export default function CTA() {
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-6">
             <a
-              href={`mailto:${contact.email}`}
+              href={contact.whatsappUrl || "https://wa.me/6287825368112"}
+              target="_blank"
+              rel="noopener noreferrer"
               onClick={triggerConfetti}
               className="w-full sm:w-auto px-10 py-5 rounded-full bg-[#6EE7F9] text-black font-bold text-base hover:scale-105 transition-all shadow-[0_0_40px_rgba(110,231,249,0.5)] flex items-center justify-center gap-3 group"
             >
               <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               <span>Mulai Proyek</span>
-            </a>
-
-            <a
-              href={contact.resumeUrl}
-              className="w-full sm:w-auto px-10 py-5 rounded-full glass-panel hover:bg-white/10 text-white font-bold text-base hover:border-[#6EE7F9]/50 transition-all flex items-center justify-center gap-3 group"
-            >
-              <FileText className="w-5 h-5 text-[#6EE7F9]" />
-              <span>Unduh Resume</span>
-              <ArrowUpRight className="w-5 h-5 text-gray-400 group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1 transition-all" />
             </a>
           </div>
         </motion.div>

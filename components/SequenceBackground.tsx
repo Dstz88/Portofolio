@@ -21,7 +21,7 @@ export default function SequenceBackground({ onProgress, onLoaded }: SequenceBac
   // Proportional section-based frame mapping across 192 total frames (0 to 191)
   // Hero (~15%), About (~10%), Stats (~8%), Projects (~22%), Skills (~12%), Timeline (~12%), Testimonials (~8%), CTA (~8%), Footer (~5%)
   const scrollRange = [0, 0.15, 0.25, 0.33, 0.55, 0.67, 0.79, 0.87, 0.95, 1.00];
-  const frameRange  = [0,   29,   48,   63,  105,  128,  151,  166,  181,  191];
+  const frameRange = [0, 29, 48, 63, 105, 128, 151, 166, 181, 191];
 
   const rawFrameIndex = useTransform(scrollYProgress, scrollRange, frameRange);
   const frameIndex = useSpring(rawFrameIndex, { damping: 30, stiffness: 200, mass: 0.5 });

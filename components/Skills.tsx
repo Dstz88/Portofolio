@@ -8,6 +8,7 @@ import {
   Sparkles,
   Database,
   Wrench,
+  Bot,
 } from "lucide-react";
 import { portfolioData } from "@/data/portfolio";
 
@@ -16,6 +17,7 @@ const iconMap: Record<string, any> = {
   Backend: Server,
   Database: Database,
   "UI/UX": Palette,
+  "AI Tools": Bot,
   Tools: Wrench,
 };
 

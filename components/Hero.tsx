@@ -5,7 +5,7 @@ import { Sparkles, ArrowDownRight, Send } from "lucide-react";
 import { portfolioData } from "@/data/portfolio";
 
 export default function Hero() {
-  const { personal } = portfolioData;
+  const { personal, contact } = portfolioData;
 
   return (
     <section id="hero" className="relative z-10 min-h-screen w-full flex items-center justify-center text-center p-4 sm:p-6 select-none pt-32 sm:pt-40 pb-16">
@@ -50,7 +50,9 @@ export default function Hero() {
           </a>
 
           <a
-            href="#contact"
+            href={contact?.whatsappUrl || "https://wa.me/6287825368112"}
+            target="_blank"
+            rel="noopener noreferrer"
             className="px-8 py-4 rounded-full glass-panel hover:bg-white/10 text-white font-semibold text-sm hover:border-[#6EE7F9]/50 transition-all flex items-center gap-2 group"
           >
             <span>Hubungi Saya</span>

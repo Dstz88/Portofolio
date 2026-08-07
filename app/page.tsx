@@ -13,7 +13,7 @@ import ProjectSection from "@/components/ProjectSection";
 import Timeline from "@/components/Timeline";
 import Skills from "@/components/Skills";
 import Stats from "@/components/Stats";
-import TestimonialSlider from "@/components/TestimonialSlider";
+import MyApproach from "@/components/MyApproach";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
 
@@ -58,8 +58,8 @@ export default function Home() {
       {/* Experience Timeline */}
       <Timeline />
 
-      {/* Testimonials */}
-      <TestimonialSlider />
+      {/* My Approach */}
+      <MyApproach />
 
       {/* CTA Section */}
       <CTA />

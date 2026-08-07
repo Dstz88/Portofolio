@@ -26,9 +26,6 @@ export default function BentoGrid() {
                 {bento.badge}
               </span>
             </div>
-            <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-white">
-              {bento.title}
-            </h2>
           </div>
           <p className="text-gray-400 max-w-md text-sm leading-relaxed">
             {bento.description}
