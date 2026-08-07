@@ -1,8 +1,18 @@
 "use client";
 
 import { ArrowUp, Code2, Mail, Globe, Share2 } from "lucide-react";
+import { portfolioData } from "@/data/portfolio";
+
+const iconMap = {
+  github: Code2,
+  linkedin: Share2,
+  instagram: Globe,
+  email: Mail,
+};
 
 export default function Footer() {
+  const { personal, contact, socials } = portfolioData;
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -17,19 +27,14 @@ export default function Footer() {
               PORTOFOLIO DEVELOPER KREATIF
             </span>
             <h3 className="text-4xl md:text-6xl font-black tracking-tighter">
-              Dhesta i.p<span className="text-[#6EE7F9]">.DEV</span>
+              {personal.name}<span className="text-[#6EE7F9]">.DEV</span>
             </h3>
           </div>
 
           {/* Social Links */}
           <div className="flex items-center gap-4 flex-wrap">
-            {[
-              { label: "GitHub", href: "https://github.com", icon: Code2 },
-              { label: "LinkedIn", href: "https://linkedin.com", icon: Share2 },
-              { label: "Instagram", href: "https://instagram.com", icon: Globe },
-              { label: "Email", href: "mailto:Dhesta i.p.developer@domain.com", icon: Mail },
-            ].map((s) => {
-              const Icon = s.icon;
+            {socials.map((s) => {
+              const Icon = iconMap[s.iconName] || Globe;
               return (
                 <a
                   key={s.label}
@@ -61,18 +66,18 @@ export default function Footer() {
           <div>
             <span className="text-xs font-mono text-gray-500 block mb-4">TEKNOLOGI</span>
             <ul className="space-y-2 text-gray-400">
-              <li>Next.js 15</li>
-              <li>Motion / Framer</li>
-              <li>Tailwind CSS</li>
-              <li>HTML5 Canvas</li>
+              <li>Laravel & PHP</li>
+              <li>MySQL & REST API</li>
+              <li>Tailwind CSS & Blade</li>
+              <li>Figma & UI/UX</li>
             </ul>
           </div>
 
           <div>
             <span className="text-xs font-mono text-gray-500 block mb-4">LOKASI</span>
             <p className="text-gray-400 leading-relaxed">
-              Berbasis di Indonesia <br />
-              Bekerja Secara Global
+              Berbasis di {contact.location} <br />
+              {contact.workPreference}
             </p>
           </div>
 
@@ -90,10 +95,11 @@ export default function Footer() {
 
         {/* Bottom copyright */}
         <div className="flex flex-col sm:flex-row justify-between items-center text-xs font-mono text-gray-500 gap-4">
-          <p>© 2026 Dhesta i.p.DEV. DIRANCANG & DIBANGUN DENGAN SEPENUH HATI.</p>
+          <p>© 2026 {personal.brandTag}. DIRANCANG & DIBANGUN DENGAN SEPENUH HATI.</p>
           <p>PENGALAMAN PORTOFOLIO KELAS DUNIA.</p>
         </div>
       </div>
     </footer>
   );
 }
+

@@ -2,6 +2,7 @@
 
 import { useRef, useEffect, useState } from "react";
 import { useInView, motion } from "motion/react";
+import { portfolioData } from "@/data/portfolio";
 
 interface CounterProps {
   from: number;
@@ -42,18 +43,13 @@ function Counter({ from = 0, to, suffix = "" }: CounterProps) {
   );
 }
 
-const statsData = [
-  { value: 15, suffix: "+", label: "Proyek Selesai", desc: "Aplikasi & produk web siap rilis" },
-  { value: 3, suffix: "+", label: "Tahun Belajar & Berkarya", desc: "Eksplorasi mendalam teknologi web" },
-  { value: 20, suffix: "+", label: "Konsep UI/UX Dibuat", desc: "Prototipe visual presisi tinggi" },
-  { value: 100, suffix: "%", label: "Dedikasi & Semangat", desc: "Menghadirkan kesempurnaan digital tanpa kompromi" },
-];
-
 export default function Stats() {
+  const { stats } = portfolioData;
+
   return (
     <section className="py-24 px-6 md:px-12 bg-transparent relative z-10 border-t border-b border-white/5">
       <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-        {statsData.map((stat, idx) => (
+        {stats.map((stat, idx) => (
           <motion.div
             key={idx}
             initial={{ opacity: 0, y: 20 }}
@@ -76,3 +72,4 @@ export default function Stats() {
     </section>
   );
 }
+

@@ -1,62 +1,146 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "motion/react";
-import { ExternalLink, Code2, ArrowUpRight } from "lucide-react";
+import { Code2, ArrowUpRight } from "lucide-react";
+import { projectsData, Project } from "@/data/projects";
+import { ProjectSlideshow } from "@/components/ProjectSlideshow";
+import { ProjectModal } from "@/components/ProjectModal";
 
-const projects = [
-  {
-    id: "01",
-    title: "Website Portofolio Sinematik",
-    category: "Scrollytelling / WebGL",
-    description: "Pengalaman interaktif scrollytelling berkualitas tinggi dengan interpolasi sekuens kanvas, Lenis smooth scroll, dan Motion.",
-    tech: ["Next.js", "Tailwind CSS", "Motion", "Canvas 2D", "Lenis"],
-    demoUrl: "#",
-    githubUrl: "https://github.com",
-    gradient: "from-cyan-500/20 via-blue-600/20 to-purple-600/20",
-  },
-  {
-    id: "02",
-    title: "Sistem Dashboard Analitik AI",
-    category: "Fullstack / Machine Learning",
-    description: "Suite intelijen enterprise real-time dengan visualisasi data interaktif, model prediksi perilaku pengguna, dan kueri latensi ultra-cepat.",
-    tech: ["React 19", "TypeScript", "Recharts", "Node.js", "PostgreSQL"],
-    demoUrl: "#",
-    githubUrl: "https://github.com",
-    gradient: "from-purple-500/20 via-pink-600/20 to-rose-600/20",
-  },
-  {
-    id: "03",
-    title: "Platform Inventaris Generasi Baru",
-    category: "Sistem Enterprise",
-    description: "Software manajemen stok cloud pintar dengan pemindaian barcode, prediksi pemesanan ulang dinamis, dan sinkronisasi multi-gudang.",
-    tech: ["Next.js", "Supabase", "Tailwind CSS", "GraphQL", "Zustand"],
-    demoUrl: "#",
-    githubUrl: "https://github.com",
-    gradient: "from-emerald-500/20 via-teal-600/20 to-cyan-600/20",
-  },
-  {
-    id: "04",
-    title: "Asisten AI Otonom",
-    category: "Agen AI / LLM",
-    description: "Agen desktop dan web cerdas yang mampu mengeksekusi tugas bahasa alami, pembaruan kode otomatis, dan orkestrasi multi-alat.",
-    tech: ["Python", "FastAPI", "Next.js", "LangChain", "Vector DB"],
-    demoUrl: "#",
-    githubUrl: "https://github.com",
-    gradient: "from-amber-500/20 via-orange-600/20 to-red-600/20",
-  },
-  {
-    id: "05",
-    title: "Sistem Desain Minimalis",
-    category: "UI Kit / Pustaka Komponen",
-    description: "Kit komponen UI berkinerja tinggi yang disesuaikan untuk aplikasi web estetika gelap mewah dan platform SaaS.",
-    tech: ["React", "Tailwind CSS", "Radix UI", "Storybook"],
-    demoUrl: "#",
-    githubUrl: "https://github.com",
-    gradient: "from-[#6EE7F9]/20 via-indigo-600/20 to-blue-600/20",
-  },
+const gradients = [
+  "from-cyan-500/20 via-blue-600/20 to-purple-600/20",
+  "from-purple-500/20 via-pink-600/20 to-rose-600/20",
+  "from-emerald-500/20 via-teal-600/20 to-cyan-600/20",
+  "from-amber-500/20 via-orange-600/20 to-red-600/20",
+  "from-[#6EE7F9]/20 via-indigo-600/20 to-blue-600/20",
 ];
 
+function ProjectCard({
+  project,
+  index,
+  onSelect,
+}: {
+  project: (typeof projectsData)[0];
+  index: number;
+  onSelect: (project: Project) => void;
+}) {
+  const [isHovered, setIsHovered] = useState(false);
+  const gradient = gradients[index % gradients.length];
+
+  return (
+    <motion.div
+      key={project.id}
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.6, delay: index * 0.1 }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onClick={() => onSelect(project)}
+      className="glass-panel p-8 md:p-12 rounded-3xl relative overflow-hidden group border border-white/10 hover:border-[#6EE7F9]/40 transition-all duration-500 cursor-pointer"
+    >
+      {/* Background Ambient Glow */}
+      <div
+        className={`absolute inset-0 bg-gradient-to-r ${gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none blur-3xl`}
+      />
+
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+        {/* Left Content (5 Cols) */}
+        <div className="lg:col-span-6 space-y-6">
+          <div className="flex items-center justify-between">
+            <span className="text-sm font-mono text-[#6EE7F9]">{project.id}</span>
+            <span className="text-xs font-mono text-gray-400 uppercase tracking-wider">
+              {project.category}
+            </span>
+          </div>
+
+          <h3 className="text-3xl md:text-5xl font-bold text-white group-hover:text-[#6EE7F9] transition-colors">
+            {project.title}
+          </h3>
+
+          <p className="text-gray-400 text-sm md:text-base leading-relaxed">
+            {project.description}
+          </p>
+
+          <div className="flex flex-wrap gap-2 pt-2">
+            {project.tech.map((item) => (
+              <span
+                key={item}
+                className="px-3 py-1 rounded-full text-xs font-mono bg-white/5 border border-white/10 text-gray-300"
+              >
+                {item}
+              </span>
+            ))}
+          </div>
+
+          <div className="flex items-center gap-4 pt-4" onClick={(e) => e.stopPropagation()}>
+            {project.demo && (
+              <a
+                href={project.demo}
+                target="_blank"
+                rel="noreferrer"
+                className="px-6 py-3 rounded-full bg-[#6EE7F9] text-black font-semibold text-xs hover:scale-105 transition-all flex items-center gap-2"
+              >
+                <span>Lihat Proyek</span>
+                <ArrowUpRight className="w-4 h-4" />
+              </a>
+            )}
+
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noreferrer"
+              className="p-3 rounded-full glass-card hover:bg-white/10 text-white hover:text-[#6EE7F9] transition-all flex items-center gap-2 text-xs font-mono"
+              aria-label="View Source Code"
+            >
+              <Code2 className="w-4 h-4" />
+              {!project.demo && <span>Repository</span>}
+            </a>
+          </div>
+        </div>
+
+        {/* Right Mockup Graphic (6 Cols) */}
+        <div className="lg:col-span-6 relative aspect-video rounded-2xl overflow-hidden glass-card border border-white/10 flex flex-col justify-between group-hover:scale-[1.02] transition-transform duration-500">
+          {/* Automatic Project Slideshow */}
+          <ProjectSlideshow project={project} isPaused={isHovered} />
+          {/* Subtle Dark Overlay */}
+          <div className="absolute inset-0 bg-black/40 z-10 pointer-events-none" />
+
+          {/* Window Header Decoration */}
+          <div className="flex items-center justify-between p-4 relative z-20 bg-gradient-to-b from-black/70 via-black/40 to-transparent">
+            <span className="px-2.5 py-1 rounded-md bg-white/10 border border-white/10 text-[10px] font-mono text-gray-200 uppercase tracking-wider backdrop-blur-md">
+              {project.category}
+            </span>
+            <span className="px-2.5 py-1 rounded-md bg-white/10 border border-white/10 text-[10px] font-mono text-gray-200 backdrop-blur-md">
+              {project.year}
+            </span>
+          </div>
+
+          {/* Window Footer Decoration */}
+          <div className="flex justify-between items-center p-4 relative z-20 bg-gradient-to-t from-black/70 via-black/40 to-transparent">
+            <span className="px-2.5 py-1 rounded-md bg-white/10 border border-white/10 text-[10px] font-mono text-[#6EE7F9] uppercase tracking-wider backdrop-blur-md">
+              STATUS: {project.status.toUpperCase()}
+            </span>
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className="p-1.5 rounded-md bg-white/10 border border-white/10 text-gray-200 hover:text-[#6EE7F9] hover:bg-white/20 transition-all backdrop-blur-md flex items-center justify-center"
+              aria-label="View Source Code"
+            >
+              <Code2 className="w-3.5 h-3.5" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
 export default function ProjectSection() {
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+
   return (
     <section id="projects" className="py-32 px-6 md:px-12 bg-transparent relative z-10 border-t border-white/5">
       <div className="max-w-7xl mx-auto">
@@ -80,102 +164,24 @@ export default function ProjectSection() {
 
         {/* Projects Stack */}
         <div className="space-y-16">
-          {projects.map((project, index) => (
-            <motion.div
+          {projectsData.map((project, index) => (
+            <ProjectCard
               key={project.id}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="glass-panel p-8 md:p-12 rounded-3xl relative overflow-hidden group border border-white/10 hover:border-[#6EE7F9]/40 transition-all duration-500"
-            >
-              {/* Background Ambient Glow */}
-              <div
-                className={`absolute inset-0 bg-gradient-to-r ${project.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none blur-3xl`}
-              />
-
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
-                {/* Left Content (5 Cols) */}
-                <div className="lg:col-span-6 space-y-6">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-mono text-[#6EE7F9]">{project.id}</span>
-                    <span className="text-xs font-mono text-gray-400 uppercase tracking-wider">
-                      {project.category}
-                    </span>
-                  </div>
-
-                  <h3 className="text-3xl md:text-5xl font-bold text-white group-hover:text-[#6EE7F9] transition-colors">
-                    {project.title}
-                  </h3>
-
-                  <p className="text-gray-400 text-sm md:text-base leading-relaxed">
-                    {project.description}
-                  </p>
-
-                  <div className="flex flex-wrap gap-2 pt-2">
-                    {project.tech.map((item) => (
-                      <span
-                        key={item}
-                        className="px-3 py-1 rounded-full text-xs font-mono bg-white/5 border border-white/10 text-gray-300"
-                      >
-                        {item}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div className="flex items-center gap-4 pt-4">
-                    <a
-                      href={project.demoUrl}
-                      className="px-6 py-3 rounded-full bg-[#6EE7F9] text-black font-semibold text-xs hover:scale-105 transition-all flex items-center gap-2"
-                    >
-                      <span>Lihat Proyek</span>
-                      <ArrowUpRight className="w-4 h-4" />
-                    </a>
-
-                    <a
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="p-3 rounded-full glass-card hover:bg-white/10 text-white hover:text-[#6EE7F9] transition-all"
-                      aria-label="View Source Code"
-                    >
-                      <Code2 className="w-4 h-4" />
-                    </a>
-                  </div>
-                </div>
-
-                {/* Right Mockup Graphic (6 Cols) */}
-                <div className="lg:col-span-6 relative aspect-video rounded-2xl overflow-hidden glass-card border border-white/10 flex items-center justify-center p-6 group-hover:scale-[1.02] transition-transform duration-500">
-                  <div className="w-full h-full rounded-xl bg-gradient-to-br from-white/10 via-black to-white/5 p-6 flex flex-col justify-between relative overflow-hidden">
-                    <div className="flex items-center justify-between">
-                      <div className="flex gap-2">
-                        <span className="w-3 h-3 rounded-full bg-red-500/80" />
-                        <span className="w-3 h-3 rounded-full bg-yellow-500/80" />
-                        <span className="w-3 h-3 rounded-full bg-green-500/80" />
-                      </div>
-                      <span className="text-[10px] font-mono text-gray-500">
-                        {project.title.toLowerCase().replace(/\s+/g, "-")}.app
-                      </span>
-                    </div>
-
-                    <div className="my-auto text-center space-y-2">
-                      <div className="w-16 h-16 mx-auto rounded-2xl bg-[#6EE7F9]/10 border border-[#6EE7F9]/30 flex items-center justify-center text-[#6EE7F9]">
-                        <ExternalLink className="w-8 h-8" />
-                      </div>
-                      <p className="text-xs font-mono text-gray-400">PRATINJAU MOCKUP INTERAKTIF</p>
-                    </div>
-
-                    <div className="flex justify-between items-center text-[10px] font-mono text-gray-500">
-                      <span>STATUS: ONLINE</span>
-                      <span>60 FPS</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
+              project={project}
+              index={index}
+              onSelect={setSelectedProject}
+            />
           ))}
         </div>
       </div>
+
+      {/* Fullscreen Project Modal */}
+      <ProjectModal
+        project={selectedProject}
+        onClose={() => setSelectedProject(null)}
+      />
     </section>
   );
 }
+
+

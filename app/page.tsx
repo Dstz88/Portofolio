@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useLenis } from "@/lib/lenis";
+import { portfolioData } from "@/data/portfolio";
 import Preloader from "@/components/Preloader";
 import Navbar from "@/components/Navbar";
 import SequenceBackground from "@/components/SequenceBackground";
@@ -40,7 +41,7 @@ export default function Home() {
       <Hero />
 
       {/* About Philosophy Text Reveal */}
-      <TextReveal text="Saya merancang dan merekayasa pengalaman digital yang menggabungkan estetika mewah, performa 60fps, dan narasi interaktif yang mendalam." />
+      <TextReveal text={portfolioData.personal.aboutPhilosophy} />
 
       {/* Stats Section */}
       <Stats />
@@ -68,3 +69,4 @@ export default function Home() {
     </main>
   );
 }
+

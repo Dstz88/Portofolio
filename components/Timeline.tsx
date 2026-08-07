@@ -2,43 +2,17 @@
 
 import { motion } from "motion/react";
 import { Briefcase, GraduationCap, Code } from "lucide-react";
+import { portfolioData } from "@/data/portfolio";
 
-const timelineEvents = [
-  {
-    year: "2025 - SEKARANG",
-    title: "Senior Creative Developer & Spesialis UI",
-    company: "Freelance & Studio Labs",
-    description: "Merancang aplikasi web kelas atas, pengalaman scrollytelling, dan sistem desain kustom untuk klien teknologi global.",
-    icon: Briefcase,
-    type: "Pekerjaan",
-  },
-  {
-    year: "2024 - 2025",
-    title: "Lead Fullstack Engineering",
-    company: "Agensi Digital Inovasi",
-    description: "Memimpin tim pengembang front-end membuat aplikasi web Next.js, mengintegrasikan alur kerja AI, dan mengoptimalkan Web Vitals.",
-    icon: Code,
-    type: "Pekerjaan",
-  },
-  {
-    year: "2023 - SEKARANG",
-    title: "Mahasiswa Sistem Informasi",
-    company: "Universitas Negeri",
-    description: "Fokus pada Rekayasa Perangkat Lunak, Sistem Basis Data, Arsitektur Enterprise, dan Interaksi Manusia dan Komputer.",
-    icon: GraduationCap,
-    type: "Pendidikan",
-  },
-  {
-    year: "2022 - 2024",
-    title: "Intern Engineering Frontend & UI",
-    company: "Lab Startup Teknologi",
-    description: "Merancang komponen React interaktif, pustaka komponen styled, dan mengoptimalkan kecepatan rendering sisi klien.",
-    icon: Code,
-    type: "Magang",
-  },
-];
+const iconMap = {
+  work: Briefcase,
+  code: Code,
+  education: GraduationCap,
+};
 
 export default function Timeline() {
+  const { timeline } = portfolioData;
+
   return (
     <section id="experience" className="py-32 px-6 md:px-12 bg-transparent relative z-10 border-t border-white/5">
       <div className="max-w-5xl mx-auto">
@@ -64,8 +38,8 @@ export default function Timeline() {
           <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-[2px] bg-gradient-to-b from-[#6EE7F9] via-blue-500 to-transparent -translate-x-1/2" />
 
           <div className="space-y-12">
-            {timelineEvents.map((event, index) => {
-              const Icon = event.icon;
+            {timeline.map((event, index) => {
+              const Icon = iconMap[event.iconType] || Code;
               const isEven = index % 2 === 0;
 
               return (
@@ -116,3 +90,4 @@ export default function Timeline() {
     </section>
   );
 }
+

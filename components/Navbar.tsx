@@ -3,8 +3,10 @@
 import { useState, useEffect } from "react";
 import { Menu } from "lucide-react";
 import MenuOverlay from "./MenuOverlay";
+import { portfolioData } from "@/data/portfolio";
 
 export default function Navbar() {
+  const { personal } = portfolioData;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -38,10 +40,10 @@ export default function Navbar() {
             className="group flex items-center gap-3 font-bold tracking-tighter text-xl text-white"
           >
             <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#6EE7F9] to-blue-600 flex items-center justify-center text-xs font-mono text-black font-black group-hover:scale-105 group-hover:shadow-[0_0_15px_rgba(110,231,249,0.5)] transition-all">
-              AD
+              {personal.logoInitials}
             </div>
             <span className="tracking-tight text-lg md:text-xl">
-              Dhesta i.p<span className="text-[#6EE7F9]">.DEV</span>
+              {personal.name}<span className="text-[#6EE7F9]">.DEV</span>
             </span>
           </a>
 
@@ -83,3 +85,4 @@ export default function Navbar() {
     </>
   );
 }
+

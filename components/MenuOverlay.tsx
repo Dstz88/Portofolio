@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from "motion/react";
 import { X, ArrowUpRight, Code2, Mail, Globe, Share2 } from "lucide-react";
+import { portfolioData } from "@/data/portfolio";
 
 interface MenuOverlayProps {
   isOpen: boolean;
@@ -17,14 +18,16 @@ const menuItems = [
   { title: "Kontak", href: "#contact" },
 ];
 
-const socials = [
-  { label: "GitHub", href: "https://github.com", icon: Code2 },
-  { label: "LinkedIn", href: "https://linkedin.com", icon: Share2 },
-  { label: "Instagram", href: "https://instagram.com", icon: Globe },
-  { label: "Email", href: "mailto:hello@example.com", icon: Mail },
-];
+const iconMap = {
+  github: Code2,
+  linkedin: Share2,
+  instagram: Globe,
+  email: Mail,
+};
 
 export default function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
+  const { contact, socials } = portfolioData;
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -86,10 +89,10 @@ export default function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
                   STATUS KETERSEDIAAN
                 </span>
                 <h3 className="text-2xl font-bold text-white mb-2">
-                  Terbuka untuk Proyek Freelance & Peran Full-time
+                  {contact.availability}
                 </h3>
                 <p className="text-gray-400 text-sm leading-relaxed">
-                  Spesialisasi dalam Next.js, Motion, WebGL 3D, dan rekayasa desain berdampak tinggi.
+                  {contact.availabilityDesc}
                 </p>
               </div>
 
@@ -98,10 +101,10 @@ export default function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
                   KONTAK LANGSUNG
                 </span>
                 <a
-                  href="mailto:hello@example.com"
+                  href={`mailto:${contact.email}`}
                   className="text-lg font-medium text-[#6EE7F9] hover:underline"
                 >
-                  Dhesta i.p.developer@domain.com
+                  {contact.email}
                 </a>
               </div>
             </motion.div>
@@ -111,7 +114,7 @@ export default function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
           <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="flex items-center gap-6">
               {socials.map((social) => {
-                const Icon = social.icon;
+                const Icon = iconMap[social.iconName] || Globe;
                 return (
                   <a
                     key={social.label}
@@ -135,3 +138,4 @@ export default function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
     </AnimatePresence>
   );
 }
+

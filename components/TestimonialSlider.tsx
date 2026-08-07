@@ -3,29 +3,10 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Quote, ChevronLeft, ChevronRight, Star } from "lucide-react";
-
-const testimonials = [
-  {
-    quote: "Dhesta i.p menghadirkan pengalaman scrollytelling yang sangat memukau tim peluncuran produk kami. Tingkat detail animasi dan performa 60fps sangat luar biasa.",
-    author: "Elena Rostova",
-    role: "VP of Product, Apex Tech",
-    company: "Apex Tech Labs",
-  },
-  {
-    quote: "Bekerja bersama Dhesta i.p sangat lancar. Dia mengubah ide kompleks kami menjadi mahakarya desain interaktif. Sangat direkomendasikan!",
-    author: "Marcus Chen",
-    role: "Creative Director",
-    company: "Studio Vanguard",
-  },
-  {
-    quote: "Penguasaan luar biasa atas Next.js, Motion, dan sistem desain. Dhesta i.p tidak sekadar mengoding; dia menciptakan karya seni digital yang menghasilkan dampak nyata.",
-    author: "Sarah Jenkins",
-    role: "Founder & Lead Designer",
-    company: "Lumina Digital",
-  },
-];
+import { portfolioData } from "@/data/portfolio";
 
 export default function TestimonialSlider() {
+  const { testimonials } = portfolioData;
   const [current, setCurrent] = useState(0);
 
   useEffect(() => {
@@ -33,7 +14,7 @@ export default function TestimonialSlider() {
       setCurrent((prev) => (prev + 1) % testimonials.length);
     }, 6000);
     return () => clearInterval(timer);
-  }, []);
+  }, [testimonials.length]);
 
   const handleNext = () => {
     setCurrent((prev) => (prev + 1) % testimonials.length);
@@ -132,3 +113,4 @@ export default function TestimonialSlider() {
     </section>
   );
 }
+

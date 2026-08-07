@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { useScroll, useTransform, motion } from "motion/react";
+import { portfolioData } from "@/data/portfolio";
 
 interface TextRevealProps {
   text: string;
@@ -9,6 +10,7 @@ interface TextRevealProps {
 
 export default function TextReveal({ text }: TextRevealProps) {
   const targetRef = useRef<HTMLDivElement>(null);
+  const { personal } = portfolioData;
 
   const { scrollYProgress } = useScroll({
     target: targetRef,
@@ -51,24 +53,14 @@ export default function TextReveal({ text }: TextRevealProps) {
         </h2>
 
         <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 pt-10 border-t border-white/10 text-gray-400 relative z-10">
-          <div className="glass-card p-5 rounded-2xl border border-white/5 bg-white/[0.02]">
-            <span className="text-xs font-mono text-[#6EE7F9] block mb-2 font-bold">01 / DESAIN</span>
-            <p className="text-xs md:text-sm leading-relaxed text-gray-300">
-              Merancang antarmuka tajam, minimalis, dan berestetika tinggi dengan hirarki visual serta mikro-interaksi halus.
-            </p>
-          </div>
-          <div className="glass-card p-5 rounded-2xl border border-white/5 bg-white/[0.02]">
-            <span className="text-xs font-mono text-[#6EE7F9] block mb-2 font-bold">02 / KODE</span>
-            <p className="text-xs md:text-sm leading-relaxed text-gray-300">
-              Menulis arsitektur Next.js bersih dan modular yang dioptimalkan untuk performa, aksesibilitas, dan animasi 60fps.
-            </p>
-          </div>
-          <div className="glass-card p-5 rounded-2xl border border-white/5 bg-white/[0.02]">
-            <span className="text-xs font-mono text-[#6EE7F9] block mb-2 font-bold">03 / CERITA</span>
-            <p className="text-xs md:text-sm leading-relaxed text-gray-300">
-              Mengubah konsep produk kompleks menjadi cerita interaktif berkesan yang memberikan impresi mendalam.
-            </p>
-          </div>
+          {personal.aboutPillars.map((pillar) => (
+            <div key={pillar.number} className="glass-card p-5 rounded-2xl border border-white/5 bg-white/[0.02]">
+              <span className="text-xs font-mono text-[#6EE7F9] block mb-2 font-bold">{pillar.number}</span>
+              <p className="text-xs md:text-sm leading-relaxed text-gray-300">
+                {pillar.description}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </section>
