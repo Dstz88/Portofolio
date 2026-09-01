@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "motion/react";
 import { X, ChevronLeft, ChevronRight, Code2, ArrowUpRight, CheckCircle2 } from "lucide-react";
@@ -14,13 +14,21 @@ export function ProjectModal({
   onClose: () => void;
 }) {
   const images = project ? [project.cover, ...(project.gallery || [])] : [];
+  const imageCount = images.length;
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [direction, setDirection] = useState<number>(0);
 
-  useEffect(() => {
-    setActiveImageIndex(0);
-    setDirection(0);
-  }, [project]);
+  const handlePrev = useCallback(() => {
+    if (imageCount <= 1) return;
+    setDirection(-1);
+    setActiveImageIndex((prev) => (prev === 0 ? imageCount - 1 : prev - 1));
+  }, [imageCount]);
+
+  const handleNext = useCallback(() => {
+    if (imageCount <= 1) return;
+    setDirection(1);
+    setActiveImageIndex((prev) => (prev === imageCount - 1 ? 0 : prev + 1));
+  }, [imageCount]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -30,29 +38,25 @@ export function ProjectModal({
     };
 
     if (project) {
+      const previousHtmlOverflow = document.documentElement.style.overflow;
+      const previousBodyOverflow = document.body.style.overflow;
+      document.documentElement.style.overflow = "hidden";
       document.body.style.overflow = "hidden";
+      document.body.classList.add("project-modal-open");
       window.addEventListener("keydown", handleKeyDown);
+
+      return () => {
+        document.documentElement.style.overflow = previousHtmlOverflow;
+        document.body.style.overflow = previousBodyOverflow;
+        document.body.classList.remove("project-modal-open");
+        window.removeEventListener("keydown", handleKeyDown);
+      };
     }
 
-    return () => {
-      document.body.style.overflow = "auto";
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [project, images.length]);
+    return undefined;
+  }, [project, onClose, handlePrev, handleNext]);
 
   if (!project) return null;
-
-  const handlePrev = () => {
-    if (images.length <= 1) return;
-    setDirection(-1);
-    setActiveImageIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
-  };
-
-  const handleNext = () => {
-    if (images.length <= 1) return;
-    setDirection(1);
-    setActiveImageIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
-  };
 
   const variants = {
     enter: (dir: number) => ({
@@ -71,7 +75,13 @@ export function ProjectModal({
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8 overflow-y-auto">
+      <div
+        data-lenis-prevent
+        role="dialog"
+        aria-modal="true"
+        aria-label={`Detail proyek ${project.title}`}
+        className="fixed inset-0 z-[60] flex items-center justify-center overflow-hidden p-0 sm:p-4 md:p-8"
+      >
         {/* Backdrop */}
         <motion.div
           initial={{ opacity: 0 }}
@@ -87,20 +97,25 @@ export function ProjectModal({
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
           transition={{ duration: 0.3 }}
-          className="relative w-full max-w-5xl bg-[#0d0f17] border border-white/10 rounded-3xl overflow-hidden shadow-2xl z-10 my-auto max-h-[90vh] flex flex-col"
+          className="relative z-10 flex h-[100dvh] max-h-[100dvh] w-full max-w-5xl flex-col overflow-hidden bg-[#0d0f17] sm:my-auto sm:h-auto sm:max-h-[90dvh] sm:rounded-2xl sm:border sm:border-white/10 sm:shadow-2xl"
         >
-          {/* Close Button */}
-          <button
-            onClick={onClose}
-            className="absolute top-4 right-4 z-30 p-2.5 rounded-full bg-white/10 border border-white/10 text-gray-300 hover:text-white hover:bg-white/20 transition-all backdrop-blur-md"
-            aria-label="Close modal"
-          >
-            <X className="w-5 h-5" />
-          </button>
+          <div className="flex min-h-16 shrink-0 items-center justify-between border-b border-white/10 bg-[#0d0f17] px-4 sm:px-6">
+            <div className="min-w-0">
+              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-[#6EE7F9]">Detail Proyek</p>
+              <p className="truncate text-sm font-semibold text-white sm:hidden">{project.title}</p>
+            </div>
+            <button
+              onClick={onClose}
+              className="flex min-h-11 min-w-11 items-center justify-center rounded-xl border border-white/10 text-gray-300 transition-colors hover:border-[#6EE7F9]/40 hover:text-white active:scale-[0.98]"
+              aria-label="Tutup detail proyek"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
 
-          <div className="overflow-y-auto p-6 md:p-10 space-y-8">
+          <div className="overscroll-contain overflow-y-auto p-4 sm:p-6 md:p-10 space-y-7 sm:space-y-8">
             {/* Gallery Viewport */}
-            <div className="relative aspect-video rounded-2xl overflow-hidden glass-card border border-white/10 group select-none">
+            <div className="relative aspect-[16/10] overflow-hidden rounded-xl border border-white/10 bg-[#090b0c] sm:aspect-video sm:rounded-2xl group select-none">
               <AnimatePresence initial={false} custom={direction} mode="popLayout">
                 <motion.div
                   key={images[activeImageIndex]}
@@ -138,7 +153,7 @@ export function ProjectModal({
 
               {/* Top Right Counter */}
               {images.length > 0 && (
-                <div className="absolute top-4 left-4 z-30 px-3 py-1 rounded-full bg-black/60 border border-white/10 text-xs font-mono text-gray-200 backdrop-blur-md">
+                <div className="absolute left-3 top-3 z-30 rounded-lg border border-white/10 bg-black/70 px-2.5 py-1 font-mono text-[10px] text-gray-200 backdrop-blur-md sm:left-4 sm:top-4 sm:text-xs">
                   {activeImageIndex + 1} / {images.length}
                 </div>
               )}
@@ -148,21 +163,21 @@ export function ProjectModal({
                 <>
                   <button
                     onClick={handlePrev}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 z-30 p-3 rounded-full bg-black/50 border border-white/10 text-white hover:bg-black/80 hover:text-[#6EE7F9] transition-all backdrop-blur-md"
+                    className="absolute left-2 top-1/2 z-30 flex min-h-11 min-w-11 -translate-y-1/2 items-center justify-center rounded-xl border border-white/10 bg-black/65 text-white backdrop-blur-md transition-colors hover:bg-black/80 hover:text-[#6EE7F9] sm:left-4 sm:rounded-full"
                     aria-label="Previous image"
                   >
                     <ChevronLeft className="w-6 h-6" />
                   </button>
                   <button
                     onClick={handleNext}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 z-30 p-3 rounded-full bg-black/50 border border-white/10 text-white hover:bg-black/80 hover:text-[#6EE7F9] transition-all backdrop-blur-md"
+                    className="absolute right-2 top-1/2 z-30 flex min-h-11 min-w-11 -translate-y-1/2 items-center justify-center rounded-xl border border-white/10 bg-black/65 text-white backdrop-blur-md transition-colors hover:bg-black/80 hover:text-[#6EE7F9] sm:right-4 sm:rounded-full"
                     aria-label="Next image"
                   >
                     <ChevronRight className="w-6 h-6" />
                   </button>
 
                   {/* Indicators */}
-                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2">
+                  <div className="absolute bottom-3 left-1/2 z-30 flex -translate-x-1/2 items-center gap-2 sm:bottom-4">
                     {images.map((img, idx) => (
                       <button
                         key={idx}
@@ -185,9 +200,9 @@ export function ProjectModal({
             {/* Content Details */}
             <div className="space-y-6">
               {/* Header */}
-              <div className="flex flex-wrap items-center justify-between gap-4">
+              <div className="flex flex-col items-start gap-5 sm:flex-row sm:flex-wrap sm:items-end sm:justify-between">
                 <div>
-                  <div className="flex items-center gap-3 mb-2">
+                  <div className="mb-2 flex flex-wrap items-center gap-x-2 gap-y-1">
                     <span className="text-xs font-mono text-[#6EE7F9] uppercase tracking-wider">
                       {project.category}
                     </span>
@@ -198,17 +213,17 @@ export function ProjectModal({
                       {project.status}
                     </span>
                   </div>
-                  <h2 className="text-3xl md:text-5xl font-bold text-white">{project.title}</h2>
+                  <h2 className="text-2xl font-bold leading-tight tracking-tight text-white sm:text-3xl md:text-5xl">{project.title}</h2>
                 </div>
 
                 {/* Actions */}
-                <div className="flex items-center gap-3">
+                <div className="grid w-full grid-cols-2 gap-3 sm:flex sm:w-auto sm:items-center">
                   {project.demo && (
                     <a
                       href={project.demo}
                       target="_blank"
                       rel="noreferrer"
-                      className="px-6 py-3 rounded-full bg-[#6EE7F9] text-black font-semibold text-xs hover:scale-105 transition-all flex items-center gap-2"
+                      className="flex min-h-11 items-center justify-center gap-2 rounded-xl bg-[#6EE7F9] px-4 py-3 text-xs font-semibold text-black transition-colors hover:bg-[#9aeeFA] active:scale-[0.98] sm:px-6"
                     >
                       <span>Lihat Proyek</span>
                       <ArrowUpRight className="w-4 h-4" />
@@ -218,7 +233,7 @@ export function ProjectModal({
                     href={project.github}
                     target="_blank"
                     rel="noreferrer"
-                    className="px-6 py-3 rounded-full glass-card hover:bg-white/10 text-white hover:text-[#6EE7F9] transition-all flex items-center gap-2 text-xs font-mono border border-white/10"
+                    className="flex min-h-11 items-center justify-center gap-2 rounded-xl border border-white/15 px-4 py-3 font-mono text-xs text-white transition-colors hover:border-[#6EE7F9]/40 hover:text-[#6EE7F9] active:scale-[0.98] sm:px-6"
                   >
                     <Code2 className="w-4 h-4" />
                     <span>Repository</span>

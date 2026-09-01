@@ -47,8 +47,8 @@ export default function Stats() {
   const { stats } = portfolioData;
 
   return (
-    <section className="py-24 px-6 md:px-12 bg-transparent relative z-10 border-t border-b border-white/5">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+    <section className="py-20 sm:py-24 px-5 sm:px-8 md:px-12 bg-transparent relative z-10 border-y border-white/10">
+      <div className="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-x-5 gap-y-10 lg:divide-x divide-white/10">
         {stats.map((stat, idx) => (
           <motion.div
             key={idx}
@@ -56,16 +56,14 @@ export default function Stats() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: idx * 0.1, duration: 0.5 }}
-            className="glass-card p-8 rounded-3xl relative overflow-hidden group hover:border-[#6EE7F9]/40 transition-colors"
+            className="relative lg:px-8 first:pl-0"
           >
-            <div className="absolute top-0 right-0 w-24 h-24 bg-[#6EE7F9]/10 rounded-full blur-2xl group-hover:bg-[#6EE7F9]/20 transition-all" />
-
-            <div className="text-5xl md:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-white via-[#6EE7F9] to-cyan-400 mb-2">
+            <div className="text-4xl sm:text-5xl md:text-6xl text-white tracking-[-0.05em] mb-3">
               <Counter from={0} to={stat.value} suffix={stat.suffix} />
             </div>
 
-            <h3 className="text-lg font-bold text-white mb-1">{stat.label}</h3>
-            <p className="text-xs text-gray-400 leading-relaxed">{stat.desc}</p>
+            <h3 className="text-sm sm:text-base font-semibold text-[#6EE7F9] mb-1">{stat.label}</h3>
+            <p className="text-xs text-gray-400 leading-relaxed max-w-[24ch]">{stat.desc}</p>
           </motion.div>
         ))}
       </div>

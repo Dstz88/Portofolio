@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import { Project } from "@/data/projects";
 
 export function ProjectSlideshow({
@@ -17,24 +17,25 @@ export function ProjectSlideshow({
     ...(project.gallery || []).slice(0, 2),
   ];
   const [currentIndex, setCurrentIndex] = useState(0);
+  const reduceMotion = useReducedMotion();
 
   useEffect(() => {
-    if (images.length <= 1 || isPaused) return;
+    if (images.length <= 1 || isPaused || reduceMotion) return;
 
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
     }, 2500);
 
     return () => clearInterval(interval);
-  }, [images.length, isPaused]);
+  }, [images.length, isPaused, reduceMotion]);
 
   return (
     <div className="absolute inset-0 z-0">
       <AnimatePresence mode="popLayout">
         <motion.div
           key={images[currentIndex]}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1, scale: isPaused ? 1.06 : 1 }}
+          initial={reduceMotion ? false : { opacity: 0 }}
+          animate={{ opacity: 1, scale: reduceMotion ? 1 : isPaused ? 1.035 : 1 }}
           exit={{ opacity: 0 }}
           transition={{
             opacity: { duration: 0.6 },

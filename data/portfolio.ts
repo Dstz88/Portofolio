@@ -144,6 +144,7 @@ export const portfolioData = {
         { name: "Laravel", level: 95 },
         { name: "PHP", level: 92 },
         { name: "REST API", level: 90 },
+        { name: "Composer", level: 90 },
       ],
     },
     {
@@ -151,6 +152,16 @@ export const portfolioData = {
       skills: [
         { name: "MySQL", level: 92 },
         { name: "Database Design", level: 88 },
+        { name: "ERD", level: 88 },
+        { name: "Migration", level: 90 },
+        { name: "Query Optimization", level: 85 },
+      ],
+    },
+    {
+      category: "Deployment",
+      skills: [
+        { name: "Vercel", level: 90 },
+        { name: "GitHub Actions", level: 84 },
       ],
     },
     {
@@ -163,23 +174,12 @@ export const portfolioData = {
       ],
     },
     {
-      category: "AI Tools",
-      skills: [
-        { name: "Antigravity", level: 96 },
-        { name: "Opencode", level: 94 },
-        { name: "Codex", level: 95 },
-        { name: "Claude", level: 95 },
-        { name: "9Router", level: 92 },
-      ],
-    },
-    {
       category: "Tools",
       skills: [
         { name: "Git", level: 90 },
         { name: "GitHub", level: 92 },
         { name: "VS Code", level: 96 },
         { name: "Postman", level: 88 },
-        { name: "Composer", level: 90 },
         { name: "npm", level: 90 },
       ],
     },

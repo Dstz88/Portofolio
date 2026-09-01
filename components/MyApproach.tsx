@@ -12,11 +12,11 @@ export default function MyApproach() {
   return (
     <section
       id="approach"
-      className="py-32 px-6 md:px-12 bg-transparent relative z-10 border-t border-white/5 overflow-hidden"
+      className="py-24 sm:py-32 px-5 sm:px-8 md:px-12 bg-transparent relative z-10 border-t border-white/10 overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto relative z-10">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-20">
+        <div className="max-w-3xl mb-14 sm:mb-20">
           <div className="inline-flex items-center gap-3 mb-4 px-3.5 py-1.5 rounded-full bg-[#6EE7F9]/10 border border-[#6EE7F9]/20 shadow-[0_0_15px_rgba(110,231,249,0.1)]">
             <span className="w-2 h-2 rounded-full bg-[#6EE7F9] animate-pulse" />
             <span className="text-xs font-mono text-[#6EE7F9] tracking-widest uppercase font-semibold">
@@ -28,7 +28,7 @@ export default function MyApproach() {
             Building with purpose,<br className="hidden sm:inline" /> designing with intent.
           </h2>
 
-          <p className="text-gray-400 text-base md:text-lg leading-relaxed max-w-2xl mx-auto">
+          <p className="text-gray-200 text-base md:text-lg leading-relaxed max-w-2xl">
             Setiap project dimulai dari memahami masalah, merancang pengalaman, lalu mengubahnya menjadi solusi digital yang terstruktur dan fungsional.
           </p>
         </div>
@@ -47,18 +47,17 @@ export default function MyApproach() {
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.5, delay: index * 0.12 }}
                 whileHover={{ y: -6 }}
-                className="group relative glass-panel p-8 rounded-3xl border border-white/10 hover:border-[#6EE7F9]/40 transition-all duration-300 flex flex-col justify-between hover:shadow-[0_0_30px_rgba(110,231,249,0.12)]"
+                className="group relative overflow-hidden p-8 rounded-3xl border border-white/15 bg-gradient-to-br from-[#141b1e]/96 via-[#0c1215]/96 to-[#06090b]/98 backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_18px_45px_rgba(0,8,12,0.3)] hover:border-[#6EE7F9]/45 transition-all duration-300 flex flex-col justify-between"
               >
-                {/* Top Subtle Radial Glow on Hover */}
-                <div className="absolute top-0 right-0 w-36 h-36 bg-[#6EE7F9]/5 rounded-full blur-2xl group-hover:bg-[#6EE7F9]/20 transition-all duration-500 pointer-events-none" />
+                <div aria-hidden="true" className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#6EE7F9]/35 to-transparent" />
 
                 <div>
                   {/* Card Header: Step Number & Icon */}
                   <div className="flex items-center justify-between mb-8">
-                    <span className="text-3xl font-mono font-bold text-[#6EE7F9]/40 group-hover:text-[#6EE7F9] transition-colors duration-300">
+                    <span className="text-3xl font-mono font-bold text-[#6EE7F9]/70 group-hover:text-[#6EE7F9] transition-colors duration-300">
                       {step.number}
                     </span>
-                    <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-300 group-hover:text-[#6EE7F9] group-hover:border-[#6EE7F9]/40 group-hover:bg-[#6EE7F9]/10 transition-all duration-300 shadow-inner">
+                    <div className="w-12 h-12 rounded-2xl bg-white/8 border border-white/15 flex items-center justify-center text-gray-100 group-hover:text-[#6EE7F9] group-hover:border-[#6EE7F9]/40 group-hover:bg-[#6EE7F9]/10 transition-all duration-300 shadow-inner">
                       <Icon className="w-5 h-5" />
                     </div>
                   </div>
@@ -69,7 +68,7 @@ export default function MyApproach() {
                   </h3>
 
                   {/* Description */}
-                  <p className="text-sm text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
+                  <p className="text-sm text-gray-200 leading-relaxed group-hover:text-white transition-colors duration-300">
                     {step.description}
                   </p>
                 </div>

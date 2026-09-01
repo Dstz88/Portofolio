@@ -5,10 +5,19 @@ import { Menu, ArrowUpRight } from "lucide-react";
 import MenuOverlay from "./MenuOverlay";
 import { portfolioData } from "@/data/portfolio";
 
+const navLinks = [
+  { label: "Beranda", href: "#hero" },
+  { label: "Tentang", href: "#about" },
+  { label: "Proyek", href: "#projects" },
+  { label: "Keahlian", href: "#skills" },
+  { label: "Pengalaman", href: "#experience" },
+];
+
 export default function Navbar() {
   const { personal, contact } = portfolioData;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState("hero");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,42 +31,62 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navLinks = [
-    { label: "Beranda", href: "#hero" },
-    { label: "Tentang", href: "#about" },
-    { label: "Proyek", href: "#projects" },
-    { label: "Keahlian", href: "#skills" },
-    { label: "Pengalaman", href: "#experience" },
-  ];
+  useEffect(() => {
+    const sections = navLinks
+      .map(({ href }) => document.getElementById(href.slice(1)))
+      .filter((section): section is HTMLElement => Boolean(section));
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visibleSection = entries.find((entry) => entry.isIntersecting);
+        if (visibleSection) setActiveSection(visibleSection.target.id);
+      },
+      { rootMargin: "-18% 0px -72% 0px", threshold: 0 }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-40 py-4 md:py-6 pointer-events-none transition-all duration-300">
-        <div className="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center pointer-events-auto">
+      <header data-site-navbar className={`fixed top-0 left-0 right-0 z-40 pointer-events-none transition-all duration-300 ${scrolled ? "py-3" : "py-4 md:py-5"}`}>
+        <div className={`max-w-7xl mx-auto flex justify-between items-center pointer-events-auto transition-all duration-300 ${scrolled ? "mx-3 md:mx-auto px-4 md:px-6 py-2 rounded-2xl glass-panel shadow-[0_16px_50px_rgba(0,0,0,0.28)]" : "px-5 md:px-8"}`}>
           {/* Logo */}
           <a
             href="#hero"
+            onClick={() => setActiveSection("hero")}
             className="group flex items-center gap-3 font-bold tracking-tighter text-xl text-white"
           >
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#6EE7F9] to-blue-600 flex items-center justify-center text-xs font-mono text-black font-black group-hover:scale-105 group-hover:shadow-[0_0_15px_rgba(110,231,249,0.5)] transition-all">
+            <div className="w-9 h-9 rounded-xl bg-[#6EE7F9] flex items-center justify-center text-xs font-mono text-black font-black group-hover:scale-[1.04] transition-transform">
               {personal.logoInitials}
             </div>
-            <span className="tracking-tight text-lg md:text-xl">
-              {personal.name}<span className="text-[#6EE7F9]">.DEV</span>
+            <span className="tracking-[-0.035em] text-lg md:text-xl">
+              Dhesta<span className="text-[#6EE7F9]">.dev</span>
             </span>
           </a>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden md:flex items-center gap-1 px-4 py-2 rounded-full glass-panel border border-white/10 bg-white/[0.03]">
-            {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="px-4 py-1.5 rounded-full text-xs font-mono tracking-wider uppercase text-gray-300 hover:text-white hover:bg-white/10 transition-all"
-              >
-                {link.label}
-              </a>
-            ))}
+          <nav className="hidden md:flex items-center gap-1">
+            {navLinks.map((link) => {
+              const isActive = activeSection === link.href.slice(1);
+
+              return (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  onClick={() => setActiveSection(link.href.slice(1))}
+                  aria-current={isActive ? "page" : undefined}
+                  className={`px-3 py-2 rounded-lg border text-[11px] font-mono tracking-wide uppercase transition-colors ${
+                    isActive
+                      ? "border-white/20 bg-white/[0.08] text-white"
+                      : "border-transparent text-gray-300 hover:border-white/10 hover:bg-white/[0.07] hover:text-white"
+                  }`}
+                >
+                  {link.label}
+                </a>
+              );
+            })}
           </nav>
 
           {/* Right Action / CTA & Mobile Menu Toggle */}
@@ -66,7 +95,7 @@ export default function Navbar() {
               href={contact.whatsappUrl || "https://wa.me/6287825368112"}
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden sm:inline-flex items-center justify-center gap-1.5 px-5 py-2 rounded-full bg-[#6EE7F9] text-black font-mono text-xs font-bold tracking-wider hover:bg-[#38bdf8] hover:shadow-[0_0_20px_rgba(110,231,249,0.4)] transition-all transform hover:-translate-y-0.5"
+              className="hidden sm:inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-xl bg-[#6EE7F9] text-black font-mono text-xs font-bold tracking-wide hover:bg-[#9aeeFA] transition-all active:scale-[0.98]"
             >
               <span>HUBUNGI SAYA</span>
               <ArrowUpRight className="w-3.5 h-3.5" />

@@ -8,16 +8,17 @@ import {
   Sparkles,
   Database,
   Wrench,
-  Bot,
+  CloudCog,
+  type LucideIcon,
 } from "lucide-react";
 import { portfolioData } from "@/data/portfolio";
 
-const iconMap: Record<string, any> = {
+const iconMap: Record<string, LucideIcon> = {
   Frontend: Layout,
   Backend: Server,
   Database: Database,
+  "Deployment": CloudCog,
   "UI/UX": Palette,
-  "AI Tools": Bot,
   Tools: Wrench,
 };
 
@@ -25,10 +26,10 @@ export default function Skills() {
   const { skills } = portfolioData;
 
   return (
-    <section id="skills" className="py-32 px-6 md:px-12 bg-transparent relative z-10 border-t border-white/5">
+    <section id="skills" className="py-24 sm:py-32 px-5 sm:px-8 md:px-12 bg-transparent relative z-10 border-t border-white/10">
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+        <div className="flex flex-col mb-12 sm:mb-16 gap-4">
           <div>
             <div className="flex items-center gap-3 mb-4">
               <span className="w-2 h-2 rounded-full bg-[#6EE7F9]" />
@@ -65,22 +66,17 @@ export default function Skills() {
                   <h3 className="text-xl font-bold text-white">{cat.category}</h3>
                 </div>
 
-                <div className="space-y-4">
+                <div className="grid grid-cols-1 gap-3">
                   {cat.skills.map((skill: { name: string; level: number }) => (
-                    <div key={skill.name}>
-                      <div className="flex justify-between text-xs font-mono mb-1.5">
-                        <span className="text-gray-300">{skill.name}</span>
-                        <span className="text-[#6EE7F9]">{skill.level}%</span>
-                      </div>
-                      <div className="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
-                        <motion.div
-                          initial={{ width: 0 }}
-                          whileInView={{ width: `${skill.level}%` }}
-                          viewport={{ once: true }}
-                          transition={{ duration: 1, ease: "easeOut" }}
-                          className="h-full bg-gradient-to-r from-[#6EE7F9] to-blue-500 rounded-full"
-                        />
-                      </div>
+                    <div
+                      key={skill.name}
+                      className="flex items-center gap-3 text-sm font-mono text-gray-300"
+                    >
+                      <span
+                        aria-hidden="true"
+                        className="size-1.5 shrink-0 rounded-full bg-[#6EE7F9] shadow-[0_0_8px_rgba(110,231,249,0.65)]"
+                      />
+                      <span>{skill.name}</span>
                     </div>
                   ))}
                 </div>

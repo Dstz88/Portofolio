@@ -18,7 +18,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-transparent text-white pt-24 pb-12 px-6 md:px-12 border-t border-white/10 relative z-10">
+    <footer className="bg-transparent text-white pt-20 pb-10 px-5 sm:px-8 md:px-12 border-t border-white/10 relative z-10">
       <div className="max-w-7xl mx-auto space-y-16">
         {/* Top Footer */}
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8">

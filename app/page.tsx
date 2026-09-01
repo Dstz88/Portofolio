@@ -12,7 +12,6 @@ import BentoGrid from "@/components/BentoGrid";
 import ProjectSection from "@/components/ProjectSection";
 import Timeline from "@/components/Timeline";
 import Skills from "@/components/Skills";
-import Stats from "@/components/Stats";
 import MyApproach from "@/components/MyApproach";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
@@ -42,9 +41,6 @@ export default function Home() {
 
       {/* About Philosophy Text Reveal */}
       <TextReveal text={portfolioData.personal.aboutPhilosophy} />
-
-      {/* Stats Section */}
-      <Stats />
 
       {/* Bento Grid Ecosystem */}
       <BentoGrid />

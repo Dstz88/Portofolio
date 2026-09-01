@@ -3,11 +3,11 @@
 @layer base {
   :root {
     --background: #050505;
-    --surface: #0D0D0D;
+    --surface: #0b0d0e;
     --primary-text: #FFFFFF;
-    --secondary-text: #9CA3AF;
+    --secondary-text: #a8b0b7;
     --accent: #6EE7F9;
-    --border: rgba(255, 255, 255, 0.08);
+    --border: rgba(255, 255, 255, 0.1);
   }
 }
 
@@ -23,6 +23,17 @@ body {
   color: #ffffff;
   font-family: var(--font-outfit), sans-serif;
   overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+}
+
+button, a { -webkit-tap-highlight-color: transparent; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+body.project-modal-open [data-site-navbar] {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(-100%);
 }
 
 ::selection {
@@ -55,15 +66,32 @@ body {
 
 /* Glassmorphism helpers */
 .glass-panel {
-  background: rgba(13, 13, 13, 0.65);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(11, 13, 14, 0.78);
+  backdrop-filter: blur(20px) saturate(125%);
+  -webkit-backdrop-filter: blur(20px) saturate(125%);
+  border: 1px solid var(--border);
 }
 
 .glass-card {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.018));
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--border);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .glass-panel, .glass-card {
+    background: #0b0d0e;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
 }

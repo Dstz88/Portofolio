@@ -13,14 +13,14 @@ export default function CTA() {
       particleCount: 80,
       spread: 70,
       origin: { y: 0.7 },
-      colors: ["#6EE7F9", "#3B82F6", "#9333EA"],
+      colors: ["#6EE7F9", "#FFFFFF", "#A8B0B7"],
     });
   };
 
   return (
-    <section id="contact" className="py-36 px-6 md:px-12 bg-transparent relative z-10 overflow-hidden border-t border-white/5">
+    <section id="contact" className="py-24 sm:py-36 px-5 sm:px-8 md:px-12 bg-transparent relative z-10 overflow-hidden border-t border-white/10">
       {/* Dynamic Animated Gradient Background */}
-      <div className="absolute inset-0 bg-gradient-to-tr from-cyan-950/30 via-indigo-950/20 to-[#050505] pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-tr from-cyan-950/25 via-[#071013]/30 to-[#050505] pointer-events-none" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#6EE7F9]/10 rounded-full blur-[140px] pointer-events-none" />
 
       <div className="max-w-5xl mx-auto text-center relative z-10">
@@ -38,9 +38,9 @@ export default function CTA() {
             </span>
           </div>
 
-          <h2 className="text-5xl md:text-8xl font-black tracking-tight text-white leading-tight">
+          <h2 className="text-[clamp(3rem,8vw,7rem)] font-black tracking-[-0.055em] text-white leading-[0.92]">
             {contact.ctaHeading}{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-[#6EE7F9] to-cyan-400">
+            <span className="text-[#6EE7F9]">
               {contact.ctaHighlight}
             </span>
           </h2>
