@@ -29,7 +29,8 @@ body {
 button, a { -webkit-tap-highlight-color: transparent; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 
-body.project-modal-open [data-site-navbar] {
+body.project-modal-open [data-site-navbar],
+body.portfolio-modal-open [data-site-navbar] {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;

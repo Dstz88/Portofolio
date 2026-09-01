@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect } from "react";
+import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "motion/react";
-import { Download, ExternalLink, X } from "lucide-react";
+import { Download, ExternalLink, FileText, X } from "lucide-react";
 
 interface PortfolioPreviewModalProps {
   isOpen: boolean;
@@ -18,21 +19,26 @@ export default function PortfolioPreviewModal({
   useEffect(() => {
     if (!isOpen) return;
 
-    const previousOverflow = document.body.style.overflow;
+    const previousHtmlOverflow = document.documentElement.style.overflow;
+    const previousBodyOverflow = document.body.style.overflow;
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") onClose();
     };
 
+    document.documentElement.style.overflow = "hidden";
     document.body.style.overflow = "hidden";
+    document.body.classList.add("portfolio-modal-open");
     window.addEventListener("keydown", handleKeyDown);
 
     return () => {
-      document.body.style.overflow = previousOverflow;
+      document.documentElement.style.overflow = previousHtmlOverflow;
+      document.body.style.overflow = previousBodyOverflow;
+      document.body.classList.remove("portfolio-modal-open");
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [isOpen, onClose]);
 
-  return (
+  const modal = (
     <AnimatePresence>
       {isOpen && (
         <motion.div
@@ -40,7 +46,8 @@ export default function PortfolioPreviewModal({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.2 }}
-          className="fixed inset-0 z-[100] bg-black/85 backdrop-blur-xl p-3 sm:p-6 md:p-10"
+          data-lenis-prevent
+          className="fixed inset-0 z-[100] bg-black/85 backdrop-blur-xl p-0 sm:p-6 md:p-10"
           role="dialog"
           aria-modal="true"
           aria-labelledby="portfolio-preview-title"
@@ -53,9 +60,9 @@ export default function PortfolioPreviewModal({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 16, scale: 0.98 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
-            className="mx-auto flex h-full max-w-6xl flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#0a0a0a] shadow-2xl"
+            className="mx-auto flex h-[100dvh] max-h-[100dvh] w-full max-w-6xl flex-col overflow-hidden bg-[#0a0a0a] shadow-2xl sm:h-full sm:max-h-[92dvh] sm:rounded-2xl sm:border sm:border-white/10"
           >
-            <div className="flex items-center justify-between gap-3 border-b border-white/10 px-4 py-3 sm:px-6">
+            <div className="flex min-h-16 shrink-0 items-center justify-between gap-3 border-b border-white/10 px-4 py-3 sm:px-6">
               <div className="min-w-0 text-left">
                 <p className="text-[10px] font-mono tracking-[0.2em] text-[#6EE7F9] uppercase">
                   Preview Dokumen
@@ -73,7 +80,7 @@ export default function PortfolioPreviewModal({
                   href={portfolioUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hidden items-center gap-2 rounded-full border border-white/10 px-4 py-2 text-xs font-medium text-gray-200 transition-colors hover:border-[#6EE7F9]/50 hover:text-[#6EE7F9] sm:flex"
+                  className="hidden items-center gap-2 rounded-full border border-white/10 px-4 py-2 text-xs font-medium text-gray-200 transition-colors hover:border-[#6EE7F9]/50 hover:text-[#6EE7F9] lg:flex"
                 >
                   <ExternalLink className="h-4 w-4" />
                   <span>Buka</span>
@@ -81,11 +88,11 @@ export default function PortfolioPreviewModal({
                 <a
                   href={portfolioUrl}
                   download="PORTOFOLIO-DHESTA.pdf"
-                  className="flex items-center gap-2 rounded-full bg-[#6EE7F9] px-3 py-2 text-xs font-bold text-black transition-transform hover:scale-105 sm:px-4"
+                  className="hidden items-center gap-2 rounded-full bg-[#6EE7F9] px-4 py-2 text-xs font-bold text-black transition-transform hover:scale-105 lg:flex"
                   aria-label="Unduh portofolio"
                 >
                   <Download className="h-4 w-4" />
-                  <span className="hidden sm:inline">Unduh</span>
+                  <span>Unduh</span>
                 </a>
                 <button
                   type="button"
@@ -98,7 +105,40 @@ export default function PortfolioPreviewModal({
               </div>
             </div>
 
-            <div className="min-h-0 flex-1 bg-[#171717]">
+            <div className="flex min-h-0 flex-1 items-center justify-center bg-[#101315] p-5 lg:hidden">
+              <div className="w-full max-w-sm rounded-2xl border border-white/15 bg-gradient-to-br from-[#151b1e] to-[#090c0e] p-6 text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
+                <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-2xl border border-[#6EE7F9]/25 bg-[#6EE7F9]/10 text-[#6EE7F9]">
+                  <FileText className="h-7 w-7" />
+                </div>
+                <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#6EE7F9]">Dokumen PDF</p>
+                <h3 className="mt-2 text-lg font-bold text-white">PORTOFOLIO-DHESTA.pdf</h3>
+                <p className="mt-3 text-sm leading-relaxed text-gray-300">
+                  Preview PDF tidak selalu tersedia di browser mobile. Buka dokumen di tab baru atau unduh untuk membacanya.
+                </p>
+
+                <div className="mt-6 grid gap-3">
+                  <a
+                    href={portfolioUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-[#6EE7F9] px-5 py-3 text-sm font-bold text-[#050505] transition-colors hover:bg-[#9aeeFA] active:scale-[0.98]"
+                  >
+                    <ExternalLink className="h-4 w-4" />
+                    <span>Buka PDF</span>
+                  </a>
+                  <a
+                    href={portfolioUrl}
+                    download="PORTOFOLIO-DHESTA.pdf"
+                    className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition-colors hover:border-[#6EE7F9]/45 hover:text-[#6EE7F9] active:scale-[0.98]"
+                  >
+                    <Download className="h-4 w-4" />
+                    <span>Unduh PDF</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div className="hidden min-h-0 flex-1 bg-[#171717] lg:block">
               <iframe
                 src={`${portfolioUrl}#view=FitH&toolbar=0`}
                 title="Preview Portofolio Dhesta Irham Prasetya"
@@ -110,4 +150,6 @@ export default function PortfolioPreviewModal({
       )}
     </AnimatePresence>
   );
+
+  return typeof document !== "undefined" ? createPortal(modal, document.body) : null;
 }
