@@ -108,7 +108,8 @@ export const portfolioData = {
     ctaHighlight: "luar biasa.",
     ctaDescription:
       "Punya proyek web Laravel atau butuh desain UI/UX berdampak tinggi? Hubungi saya dan mari wujudkan visi Anda menjadi kenyataan.",
-    resumeUrl: "#",
+    resumeUrl: "/CV-Dhesta-Irham-Prasetya.pdf",
+    portfolioUrl: "/PORTOFOLIO-DHESTA.pdf",
     whatsappUrl: "https://wa.me/6287825368112",
   },
 

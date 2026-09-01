@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
-import { Send, Sparkles } from "lucide-react";
+import { Download, Send, Sparkles } from "lucide-react";
 import confetti from "canvas-confetti";
 import { portfolioData } from "@/data/portfolio";
 
@@ -59,6 +59,15 @@ export default function CTA() {
             >
               <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               <span>Mulai Proyek</span>
+            </a>
+
+            <a
+              href={contact.resumeUrl}
+              download="CV-Dhesta-Irham-Prasetya.pdf"
+              className="w-full sm:w-auto px-10 py-5 rounded-full glass-panel border border-white/10 hover:border-[#6EE7F9]/50 hover:bg-white/10 text-white font-bold text-base transition-all flex items-center justify-center gap-3 group"
+            >
+              <Download className="w-5 h-5 text-[#6EE7F9] group-hover:translate-y-1 transition-transform" />
+              <span>Unduh CV</span>
             </a>
           </div>
         </motion.div>

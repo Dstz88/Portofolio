@@ -1,11 +1,15 @@
 "use client";
 
+import { useCallback, useState } from "react";
 import { motion } from "motion/react";
-import { Sparkles, ArrowDownRight, Send } from "lucide-react";
+import { Sparkles, ArrowUpRight, Download, Send } from "lucide-react";
 import { portfolioData } from "@/data/portfolio";
+import PortfolioPreviewModal from "./PortfolioPreviewModal";
 
 export default function Hero() {
   const { personal, contact } = portfolioData;
+  const [isPortfolioOpen, setIsPortfolioOpen] = useState(false);
+  const closePortfolio = useCallback(() => setIsPortfolioOpen(false), []);
 
   return (
     <section id="hero" className="relative z-10 min-h-screen w-full flex items-center justify-center text-center p-4 sm:p-6 select-none pt-32 sm:pt-40 pb-16">
@@ -40,13 +44,23 @@ export default function Hero() {
           ))}
         </p>
 
-        <div className="flex flex-col sm:flex-row items-center gap-6 pointer-events-auto mb-12">
-          <a
-            href="#projects"
+        <div className="flex flex-col sm:flex-row sm:flex-wrap items-center justify-center gap-4 sm:gap-6 pointer-events-auto mb-12">
+          <button
+            type="button"
+            onClick={() => setIsPortfolioOpen(true)}
             className="px-8 py-4 rounded-full bg-[#6EE7F9] text-[#050505] font-semibold text-sm hover:scale-105 transition-all shadow-[0_0_30px_rgba(110,231,249,0.4)] flex items-center gap-2 group"
           >
-            <span>Lihat Proyek</span>
-            <ArrowDownRight className="w-4 h-4 group-hover:translate-x-1 group-hover:translate-y-1 transition-transform" />
+            <span>Lihat Portofolio</span>
+            <ArrowUpRight className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+          </button>
+
+          <a
+            href={contact.resumeUrl}
+            download="CV-Dhesta-Irham-Prasetya.pdf"
+            className="px-8 py-4 rounded-full glass-panel hover:bg-white/10 text-white font-semibold text-sm hover:border-[#6EE7F9]/50 transition-all flex items-center gap-2 group"
+          >
+            <span>Unduh CV</span>
+            <Download className="w-4 h-4 text-[#6EE7F9] group-hover:translate-y-1 transition-transform" />
           </a>
 
           <a
@@ -62,9 +76,15 @@ export default function Hero() {
 
         <div className="flex items-center gap-2 text-[10px] sm:text-xs font-mono text-gray-500 animate-bounce">
           <span>GULIR UNTUK MENJELAJAHI CERITA</span>
-          <ArrowDownRight className="w-4 h-4 text-[#6EE7F9]" />
+          <ArrowUpRight className="w-4 h-4 rotate-90 text-[#6EE7F9]" />
         </div>
       </motion.div>
+
+      <PortfolioPreviewModal
+        isOpen={isPortfolioOpen}
+        onClose={closePortfolio}
+        portfolioUrl={contact.portfolioUrl}
+      />
     </section>
   );
 }
