@@ -62,12 +62,9 @@ export default function Timeline() {
                   <div className="ml-12 md:ml-0 md:w-1/2 md:px-8">
                     <div className="relative overflow-hidden p-6 md:p-8 rounded-3xl border border-white/15 bg-gradient-to-br from-[#141b1e]/95 via-[#0c1215]/96 to-[#06090b]/98 backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_18px_45px_rgba(0,8,12,0.28)] hover:border-[#6EE7F9]/45 transition-colors group">
                       <div aria-hidden="true" className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#6EE7F9]/35 to-transparent" />
-                      <div className="flex items-center justify-between mb-3">
+                      <div className="mb-3">
                         <span className="text-xs font-mono text-[#6EE7F9] tracking-widest">
                           {event.year}
-                        </span>
-                        <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/8 border border-white/10 text-gray-200">
-                          {event.type}
                         </span>
                       </div>
 

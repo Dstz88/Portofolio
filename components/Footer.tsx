@@ -95,8 +95,8 @@ export default function Footer() {
 
         {/* Bottom copyright */}
         <div className="flex flex-col sm:flex-row justify-between items-center text-xs font-mono text-gray-500 gap-4">
-          <p>© 2026 {personal.brandTag}. DIRANCANG & DIBANGUN DENGAN SEPENUH HATI.</p>
-          <p>PENGALAMAN PORTOFOLIO KELAS DUNIA.</p>
+          <p>© 2026 {personal.name}. Hak cipta dilindungi.</p>
+          
         </div>
       </div>
     </footer>
