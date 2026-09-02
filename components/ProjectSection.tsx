@@ -113,7 +113,7 @@ export default function ProjectSection() {
           <p className="mb-4 font-mono text-xs uppercase tracking-[0.16em] text-[#6EE7F9]">Karya Pilihan</p>
           <h2 className="text-4xl font-bold tracking-[-0.045em] text-white sm:text-5xl md:text-6xl">Proyek Unggulan</h2>
           <p className="mt-5 max-w-2xl text-sm leading-relaxed text-gray-200 sm:text-base">
-            Dirancang dengan rekayasa presisi, estetika visual tinggi, serta perhatian detail pada mikro-interaksi.
+            Kumpulan proyek web dan studi kasus UI/UX yang mendokumentasikan proses belajar, perancangan, dan implementasi saya.
           </p>
         </header>
 

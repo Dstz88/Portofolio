@@ -9,8 +9,8 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "Creative Developer & UI Engineer | Portofolio",
-  description: "Pengalaman portofolio scrollytelling interaktif kelas dunia yang dibangun dengan Next.js, Motion, Lenis, dan HTML5 Canvas.",
+  title: "Dhesta Irham Prasetya | Web Developer & UI/UX Designer",
+  description: "Portfolio Dhesta Irham Prasetya yang menampilkan proyek web development, sistem informasi, dan studi kasus UI/UX.",
 };
 
 export default function RootLayout({

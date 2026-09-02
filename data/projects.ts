@@ -83,7 +83,7 @@ export const projectsData: Project[] = [
     longDescription: "CIREVA adalah aplikasi web modern berbasis Laravel yang dilengkapi dasbor administrasi dinamis, arsitektur antarmuka responsif, visualisasi data yang efisien, dan pengelolaan basis data terstruktur.",
     status: "Completed",
     year: "2025",
-    role: "Lead Web Developer",
+    role: "UI/UX Designer",
     cover: "/projects/cireva/cover.png",
     gallery: [
       "/projects/cireva/gallery/01.png",

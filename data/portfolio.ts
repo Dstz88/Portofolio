@@ -49,7 +49,7 @@ export interface ApproachStep {
 
 export const portfolioData = {
   personal: {
-    name: "Dhesta i.p",
+    name: "Dhesta Irham Prasetya",
     logoInitials: "DP",
     brandTag: "Dhesta i.p.DEV",
     badgeText: "PORTFOLIO 2026",
@@ -98,16 +98,16 @@ export const portfolioData = {
 
   contact: {
     email: "desxz48@gmail.com",
-    availability: "Terbuka untuk Proyek Freelance & Peran Full-time",
+    availability: "Terbuka untuk Magang & Kolaborasi Proyek",
     availabilityDesc:
-      "Spesialisasi dalam Laravel Web Development, UI/UX Design, REST API, dan Sistem Informasi Enterprise.",
+      "Berfokus pada Laravel Web Development, UI/UX Design, REST API, dan pengembangan Sistem Informasi.",
     location: "Indonesia",
     workPreference: "Bekerja Secara Global",
-    ctaBadge: "MARI BERDISKUSI PROYEK",
-    ctaHeading: "Mari ciptakan sesuatu yang",
-    ctaHighlight: "luar biasa.",
+    ctaBadge: "TERBUKA UNTUK MAGANG & KOLABORASI",
+    ctaHeading: "Mari membangun solusi yang",
+    ctaHighlight: "bermakna.",
     ctaDescription:
-      "Punya proyek web Laravel atau butuh desain UI/UX berdampak tinggi? Hubungi saya dan mari wujudkan visi Anda menjadi kenyataan.",
+      "Saya terbuka untuk kesempatan magang, kolaborasi proyek, dan diskusi seputar pengembangan web serta UI/UX.",
     resumeUrl: "/CV-Dhesta-Irham-Prasetya.pdf",
     portfolioUrl: "/PORTOFOLIO-DHESTA.pdf",
     whatsappUrl: "https://wa.me/6287825368112",
@@ -121,10 +121,10 @@ export const portfolioData = {
   ] as SocialLink[],
 
   stats: [
-    { value: 15, suffix: "+", label: "Proyek Selesai", desc: "Aplikasi Laravel & Desain UI/UX rilis" },
-    { value: 3, suffix: "+", label: "Tahun Belajar & Berkarya", desc: "Eksplorasi web dev & UI/UX" },
-    { value: 20, suffix: "+", label: "Konsep UI/UX Dibuat", desc: "Prototipe Figma & Wireframe" },
-    { value: 100, suffix: "%", label: "Dedikasi & Semangat", desc: "Solusi digital presisi tanpa kompromi" },
+    { value: 5, suffix: "+", label: "Proyek Pilihan", desc: "Proyek web dan studi kasus yang terdokumentasi" },
+    { value: 3, suffix: "+", label: "Tahun Belajar", desc: "Eksplorasi web development dan UI/UX" },
+    { value: 2, suffix: "", label: "Fokus Utama", desc: "Web development dan UI/UX design" },
+    { value: 1, suffix: "", label: "Tujuan", desc: "Membangun solusi yang berguna dan terstruktur" },
   ] as StatItem[],
 
   skills: [
@@ -241,18 +241,18 @@ export const portfolioData = {
   timeline: [
     {
       year: "2025 - SEKARANG",
-      title: "Laravel Developer & UI/UX Specialist",
-      company: "Freelance & Digital Projects",
-      description: "Merancang aplikasi web Laravel terstruktur, RESTful API, dan prototipe UI/UX di Figma untuk berbagai kebutuhan klien.",
-      type: "Pekerjaan",
+      title: "Pengembangan Proyek Web & UI/UX",
+      company: "Proyek Mandiri & Akademik",
+      description: "Mengembangkan aplikasi web, REST API, serta prototipe UI/UX untuk membangun kemampuan teknis dan menyelesaikan studi kasus sistem informasi.",
+      type: "Proyek",
       iconType: "work",
     },
     {
       year: "2024 - 2025",
-      title: "Web Developer & UI Designer",
-      company: "Project Studio",
-      description: "Mengembangkan aplikasi web berbasis Laravel & MySQL, membuat wireframe dan prototipe antarmuka, serta integrasi sistem.",
-      type: "Pekerjaan",
+      title: "Eksplorasi Web Development & UI Design",
+      company: "Proyek Pembelajaran",
+      description: "Mempelajari pengembangan aplikasi berbasis Laravel dan MySQL serta membuat wireframe dan prototipe antarmuka melalui proyek praktik.",
+      type: "Pembelajaran",
       iconType: "code",
     },
     {
@@ -265,10 +265,10 @@ export const portfolioData = {
     },
     {
       year: "2022 - 2024",
-      title: "Junior Web Developer & UI Designer",
-      company: "Tech Learning Lab",
-      description: "Membuat komponen HTML5/CSS3/Tailwind, mengimplementasikan antarmuka Blade, dan mempelajari alur kerja Laravel.",
-      type: "Magang",
+      title: "Fondasi Web Development",
+      company: "Pembelajaran Mandiri",
+      description: "Membangun fondasi HTML, CSS, JavaScript, dan desain antarmuka sebelum mendalami pengembangan aplikasi berbasis Laravel.",
+      type: "Pembelajaran",
       iconType: "code",
     },
   ] as TimelineEvent[],
