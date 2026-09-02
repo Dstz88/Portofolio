@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { useScroll, useTransform, useSpring } from "motion/react";
+import { useReducedMotion, useScroll, useTransform, useSpring } from "motion/react";
 import { useSequence } from "@/hooks/useSequence";
 import { useCanvas } from "@/hooks/useCanvas";
 
@@ -23,8 +23,14 @@ const HERO_HEIGHT = "h-[1800vh]";
 export default function SequenceScroll({ onProgress, onLoaded }: SequenceScrollProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const reducedMotion = useReducedMotion() ?? false;
 
-  const { imagesRef, imagesLoaded } = useSequence(TOTAL_FRAMES, onProgress, onLoaded);
+  const { imagesRef, imagesLoaded, subscribeToFrameLoads } = useSequence(
+    TOTAL_FRAMES,
+    onProgress,
+    onLoaded,
+    reducedMotion
+  );
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -50,7 +56,15 @@ export default function SequenceScroll({ onProgress, onLoaded }: SequenceScrollP
   const story3Scale = useTransform(scrollYProgress, [0.70, 0.76, 0.94, 1.00], [0.92, 1, 1, 0.96]);
 
   // Canvas render hook
-  useCanvas(canvasRef, imagesRef, frameIndex, TOTAL_FRAMES, imagesLoaded);
+  useCanvas(
+    canvasRef,
+    imagesRef,
+    frameIndex,
+    TOTAL_FRAMES,
+    imagesLoaded,
+    subscribeToFrameLoads,
+    reducedMotion
+  );
 
   return (
     <div ref={containerRef} id="hero" className={`relative ${HERO_HEIGHT} w-full bg-[#050505]`}>

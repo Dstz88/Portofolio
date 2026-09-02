@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useScroll, useTransform, useSpring } from "motion/react";
+import { motion, useReducedMotion, useScroll, useTransform, useSpring } from "motion/react";
 import { useSequence } from "@/hooks/useSequence";
 import { useCanvas } from "@/hooks/useCanvas";
 
@@ -14,7 +14,13 @@ const TOTAL_FRAMES = 192;
 
 export default function SequenceBackground({ onProgress, onLoaded }: SequenceBackgroundProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const { imagesRef, imagesLoaded } = useSequence(TOTAL_FRAMES, onProgress, onLoaded);
+  const reducedMotion = useReducedMotion() ?? false;
+  const { imagesRef, imagesLoaded, subscribeToFrameLoads } = useSequence(
+    TOTAL_FRAMES,
+    onProgress,
+    onLoaded,
+    reducedMotion
+  );
 
   const { scrollYProgress } = useScroll();
 
@@ -29,7 +35,15 @@ export default function SequenceBackground({ onProgress, onLoaded }: SequenceBac
   // Dynamic cinematic overlay darkness animation: lighter at hero, deeper during dense text content
   const overlayOpacity = useTransform(scrollYProgress, [0, 0.15, 0.35, 0.65, 0.85, 1.00], [0.35, 0.75, 0.82, 0.75, 0.80, 0.65]);
 
-  useCanvas(canvasRef, imagesRef, frameIndex, TOTAL_FRAMES, imagesLoaded);
+  useCanvas(
+    canvasRef,
+    imagesRef,
+    frameIndex,
+    TOTAL_FRAMES,
+    imagesLoaded,
+    subscribeToFrameLoads,
+    reducedMotion
+  );
 
   return (
     <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">

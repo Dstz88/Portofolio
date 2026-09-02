@@ -10,6 +10,9 @@ interface PreloaderProps {
 
 export default function Preloader({ progress, isLoaded }: PreloaderProps) {
   const [show, setShow] = useState(true);
+  const safeProgress = Number.isFinite(progress)
+    ? Math.min(100, Math.max(0, progress))
+    : 0;
 
   useEffect(() => {
     if (isLoaded) {
@@ -41,7 +44,7 @@ export default function Preloader({ progress, isLoaded }: PreloaderProps) {
               <motion.span
                 className="text-7xl md:text-9xl font-bold tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-600 block"
               >
-                {Math.round(progress)}%
+                {Math.round(safeProgress)}%
               </motion.span>
             </div>
             
@@ -49,7 +52,7 @@ export default function Preloader({ progress, isLoaded }: PreloaderProps) {
             <div className="w-64 md:w-96 h-[2px] bg-white/10 rounded-full overflow-hidden relative">
               <motion.div
                 className="h-full bg-[#6EE7F9] shadow-[0_0_12px_#6EE7F9]"
-                style={{ width: `${progress}%` }}
+                style={{ width: `${safeProgress}%` }}
                 transition={{ ease: "easeOut", duration: 0.2 }}
               />
             </div>
@@ -63,7 +66,7 @@ export default function Preloader({ progress, isLoaded }: PreloaderProps) {
             </div>
             <div className="text-right">
               <p className="text-[#6EE7F9]">MEMUAT ASET</p>
-              <p>{progress < 100 ? "MEMUAT_BINGKAI..." : "SIAP"}</p>
+              <p>{safeProgress < 100 ? "MEMUAT_BINGKAI..." : "SIAP"}</p>
             </div>
           </div>
         </motion.div>

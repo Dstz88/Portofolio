@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useLenis } from "@/lib/lenis";
 import { portfolioData } from "@/data/portfolio";
 import Preloader from "@/components/Preloader";
@@ -21,6 +21,10 @@ export default function Home() {
 
   const [loadingProgress, setLoadingProgress] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
+  const handleLoadingProgress = useCallback((progress: number) => {
+    setLoadingProgress((current) => Math.max(current, progress));
+  }, []);
+  const handleLoaded = useCallback(() => setIsLoaded(true), []);
 
   return (
     <main className="relative min-h-screen bg-[#050505] text-white selection:bg-[#6EE7F9] selection:text-black overflow-x-hidden">
@@ -29,8 +33,8 @@ export default function Home() {
 
       {/* Global Fixed Canvas Background */}
       <SequenceBackground
-        onProgress={(p) => setLoadingProgress(p)}
-        onLoaded={() => setIsLoaded(true)}
+        onProgress={handleLoadingProgress}
+        onLoaded={handleLoaded}
       />
 
       {/* Transparent Floating Navbar */}
