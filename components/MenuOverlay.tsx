@@ -1,8 +1,10 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { X, ArrowUpRight, Code2, Mail, Globe } from "lucide-react";
 import { portfolioData } from "@/data/portfolio";
+import { useFocusTrap } from "@/hooks/useFocusTrap";
 
 interface MenuOverlayProps {
   isOpen: boolean;
@@ -26,6 +28,24 @@ const iconMap = {
 
 export default function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
   const { contact, socials } = portfolioData;
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+
+  useFocusTrap(dialogRef, closeButtonRef, isOpen, onClose);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const previousHtmlOverflow = document.documentElement.style.overflow;
+    const previousBodyOverflow = document.body.style.overflow;
+    document.documentElement.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.documentElement.style.overflow = previousHtmlOverflow;
+      document.body.style.overflow = previousBodyOverflow;
+    };
+  }, [isOpen]);
 
   return (
     <AnimatePresence>
@@ -35,17 +55,25 @@ export default function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
           animate={{ opacity: 1, clipPath: "circle(150% at 95% 5%)" }}
           exit={{ opacity: 0, clipPath: "circle(0% at 95% 5%)" }}
           transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }}
+          id="mobile-navigation"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="mobile-navigation-title"
+          ref={dialogRef}
+          tabIndex={-1}
           className="fixed inset-0 z-50 bg-[#050505]/95 backdrop-blur-2xl flex flex-col justify-between p-8 md:p-16"
         >
           {/* Top Bar */}
           <div className="flex justify-between items-center w-full">
-            <span className="text-xs uppercase tracking-widest text-[#6EE7F9] font-mono">
+            <span id="mobile-navigation-title" className="text-xs uppercase tracking-widest text-[#6EE7F9] font-mono">
               MENU NAVIGASI
             </span>
             <button
+              ref={closeButtonRef}
+              type="button"
               onClick={onClose}
               className="p-3 rounded-full bg-white/5 border border-white/10 hover:border-[#6EE7F9] text-white hover:text-[#6EE7F9] transition-all group cursor-pointer"
-              aria-label="Close menu"
+              aria-label="Tutup menu navigasi"
             >
               <X className="w-6 h-6 group-hover:rotate-90 transition-transform duration-300" />
             </button>

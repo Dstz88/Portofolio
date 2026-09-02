@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "motion/react";
 import { Download, ExternalLink, FileText, X } from "lucide-react";
+import { useFocusTrap } from "@/hooks/useFocusTrap";
 
 interface PortfolioPreviewModalProps {
   isOpen: boolean;
@@ -16,25 +17,24 @@ export default function PortfolioPreviewModal({
   onClose,
   portfolioUrl,
 }: PortfolioPreviewModalProps) {
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+
+  useFocusTrap(dialogRef, closeButtonRef, isOpen, onClose);
+
   useEffect(() => {
     if (!isOpen) return;
 
     const previousHtmlOverflow = document.documentElement.style.overflow;
     const previousBodyOverflow = document.body.style.overflow;
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") onClose();
-    };
-
     document.documentElement.style.overflow = "hidden";
     document.body.style.overflow = "hidden";
     document.body.classList.add("portfolio-modal-open");
-    window.addEventListener("keydown", handleKeyDown);
 
     return () => {
       document.documentElement.style.overflow = previousHtmlOverflow;
       document.body.style.overflow = previousBodyOverflow;
       document.body.classList.remove("portfolio-modal-open");
-      window.removeEventListener("keydown", handleKeyDown);
     };
   }, [isOpen, onClose]);
 
@@ -51,6 +51,8 @@ export default function PortfolioPreviewModal({
           role="dialog"
           aria-modal="true"
           aria-labelledby="portfolio-preview-title"
+          ref={dialogRef}
+          tabIndex={-1}
           onMouseDown={(event) => {
             if (event.target === event.currentTarget) onClose();
           }}
@@ -95,6 +97,7 @@ export default function PortfolioPreviewModal({
                   <span>Unduh</span>
                 </a>
                 <button
+                  ref={closeButtonRef}
                   type="button"
                   onClick={onClose}
                   className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border border-white/10 text-gray-300 transition-colors hover:border-[#6EE7F9]/50 hover:text-[#6EE7F9]"

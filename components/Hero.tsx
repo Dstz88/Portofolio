@@ -12,7 +12,7 @@ export default function Hero() {
   const closePortfolio = useCallback(() => setIsPortfolioOpen(false), []);
 
   return (
-    <section id="hero" className="relative z-10 min-h-[100dvh] w-full flex items-center px-5 sm:px-8 md:px-12 pt-24 pb-14 select-none">
+    <section id="hero" className="relative z-10 min-h-[100dvh] w-full flex items-center px-5 sm:px-8 md:px-12 pt-24 pb-14">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}

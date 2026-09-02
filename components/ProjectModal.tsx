@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "motion/react";
 import { X, ChevronLeft, ChevronRight, Code2, ArrowUpRight, CheckCircle2 } from "lucide-react";
 import { Project } from "@/data/projects";
+import { useFocusTrap } from "@/hooks/useFocusTrap";
 
 export function ProjectModal({
   project,
@@ -17,6 +18,10 @@ export function ProjectModal({
   const imageCount = images.length;
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [direction, setDirection] = useState<number>(0);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+
+  useFocusTrap(dialogRef, closeButtonRef, Boolean(project), onClose);
 
   const handlePrev = useCallback(() => {
     if (imageCount <= 1) return;
@@ -32,7 +37,6 @@ export function ProjectModal({
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
       if (e.key === "ArrowLeft") handlePrev();
       if (e.key === "ArrowRight") handleNext();
     };
@@ -79,7 +83,10 @@ export function ProjectModal({
         data-lenis-prevent
         role="dialog"
         aria-modal="true"
-        aria-label={`Detail proyek ${project.title}`}
+        aria-labelledby="project-modal-title"
+        aria-describedby="project-modal-description"
+        ref={dialogRef}
+        tabIndex={-1}
         className="fixed inset-0 z-[60] flex items-center justify-center overflow-hidden p-0 sm:p-4 md:p-8"
       >
         {/* Backdrop */}
@@ -105,6 +112,8 @@ export function ProjectModal({
               <p className="truncate text-sm font-semibold text-white sm:hidden">{project.title}</p>
             </div>
             <button
+              ref={closeButtonRef}
+              type="button"
               onClick={onClose}
               className="flex min-h-11 min-w-11 items-center justify-center rounded-xl border border-white/10 text-gray-300 transition-colors hover:border-[#6EE7F9]/40 hover:text-white active:scale-[0.98]"
               aria-label="Tutup detail proyek"
@@ -162,16 +171,18 @@ export function ProjectModal({
               {images.length > 1 && (
                 <>
                   <button
+                    type="button"
                     onClick={handlePrev}
                     className="absolute left-2 top-1/2 z-30 flex min-h-11 min-w-11 -translate-y-1/2 items-center justify-center rounded-xl border border-white/10 bg-black/65 text-white backdrop-blur-md transition-colors hover:bg-black/80 hover:text-[#6EE7F9] sm:left-4 sm:rounded-full"
-                    aria-label="Previous image"
+                    aria-label="Gambar proyek sebelumnya"
                   >
                     <ChevronLeft className="w-6 h-6" />
                   </button>
                   <button
+                    type="button"
                     onClick={handleNext}
                     className="absolute right-2 top-1/2 z-30 flex min-h-11 min-w-11 -translate-y-1/2 items-center justify-center rounded-xl border border-white/10 bg-black/65 text-white backdrop-blur-md transition-colors hover:bg-black/80 hover:text-[#6EE7F9] sm:right-4 sm:rounded-full"
-                    aria-label="Next image"
+                    aria-label="Gambar proyek berikutnya"
                   >
                     <ChevronRight className="w-6 h-6" />
                   </button>
@@ -181,16 +192,24 @@ export function ProjectModal({
                     {images.map((img, idx) => (
                       <button
                         key={idx}
+                        type="button"
+                        aria-label={`Tampilkan gambar proyek ${idx + 1} dari ${images.length}`}
+                        aria-current={idx === activeImageIndex ? "true" : undefined}
                         onClick={() => {
                           setDirection(idx > activeImageIndex ? 1 : -1);
                           setActiveImageIndex(idx);
                         }}
-                        className={`h-1.5 rounded-full transition-all ${
-                          idx === activeImageIndex
-                            ? "w-6 bg-[#6EE7F9]"
-                            : "w-2 bg-white/40 hover:bg-white/70"
-                        }`}
-                      />
+                        className="group flex min-h-11 min-w-11 items-center justify-center rounded-full"
+                      >
+                        <span
+                          aria-hidden="true"
+                          className={`h-1.5 rounded-full transition-all ${
+                            idx === activeImageIndex
+                              ? "w-6 bg-[#6EE7F9]"
+                              : "w-2 bg-white/40 group-hover:bg-white/70"
+                          }`}
+                        />
+                      </button>
                     ))}
                   </div>
                 </>
@@ -213,7 +232,7 @@ export function ProjectModal({
                       {project.status}
                     </span>
                   </div>
-                  <h2 className="text-2xl font-bold leading-tight tracking-tight text-white sm:text-3xl md:text-5xl">{project.title}</h2>
+                  <h2 id="project-modal-title" className="text-2xl font-bold leading-tight tracking-tight text-white sm:text-3xl md:text-5xl">{project.title}</h2>
                 </div>
 
                 {/* Actions */}
@@ -242,7 +261,7 @@ export function ProjectModal({
               </div>
 
               {/* Description */}
-              <p className="text-gray-300 text-base leading-relaxed">
+              <p id="project-modal-description" className="text-gray-300 text-base leading-relaxed">
                 {project.longDescription || project.description}
               </p>
 

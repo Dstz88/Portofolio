@@ -49,8 +49,7 @@ export default function SequenceBackground({ onProgress, onLoaded }: SequenceBac
     <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
       <canvas
         ref={canvasRef}
-        role="img"
-        aria-label="Global scrollytelling background sequence animation"
+        aria-hidden="true"
         className="absolute inset-0 w-full h-full object-cover"
       />
       {/* Dynamic linear overlay */}

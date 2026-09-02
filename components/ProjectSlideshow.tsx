@@ -17,20 +17,27 @@ export function ProjectSlideshow({
     ...(project.gallery || []).slice(0, 2),
   ];
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isFocusWithin, setIsFocusWithin] = useState(false);
   const reduceMotion = useReducedMotion();
 
   useEffect(() => {
-    if (images.length <= 1 || isPaused || reduceMotion) return;
+    if (images.length <= 1 || isPaused || isFocusWithin || reduceMotion) return;
 
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
     }, 2500);
 
     return () => clearInterval(interval);
-  }, [images.length, isPaused, reduceMotion]);
+  }, [images.length, isPaused, isFocusWithin, reduceMotion]);
 
   return (
-    <div className="absolute inset-0 z-0">
+    <div
+      className="absolute inset-0 z-0"
+      onFocusCapture={() => setIsFocusWithin(true)}
+      onBlurCapture={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) setIsFocusWithin(false);
+      }}
+    >
       <AnimatePresence mode="popLayout">
         <motion.div
           key={images[currentIndex]}
@@ -55,18 +62,27 @@ export function ProjectSlideshow({
 
       {/* Progress Indicator */}
       {images.length > 1 && (
-        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-30 flex items-center gap-1.5 pointer-events-none">
+        <div className="absolute bottom-1 left-1/2 -translate-x-1/2 z-30 flex items-center">
           {images.map((_, idx) => (
-            <motion.span
+            <button
               key={idx}
-              initial={false}
-              animate={{
-                width: idx === currentIndex ? 16 : 6,
-                backgroundColor: idx === currentIndex ? "#6EE7F9" : "rgba(255, 255, 255, 0.3)",
-              }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="h-1 rounded-full block"
-            />
+              type="button"
+              onClick={() => setCurrentIndex(idx)}
+              aria-label={`Tampilkan slide ${idx + 1} dari ${images.length} untuk ${project.title}`}
+              aria-current={idx === currentIndex ? "true" : undefined}
+              className="flex min-h-11 min-w-11 items-center justify-center rounded-full"
+            >
+              <motion.span
+                aria-hidden="true"
+                initial={false}
+                animate={{
+                  width: idx === currentIndex ? 16 : 6,
+                  backgroundColor: idx === currentIndex ? "#6EE7F9" : "rgba(255, 255, 255, 0.3)",
+                }}
+                transition={{ duration: reduceMotion ? 0 : 0.3, ease: "easeInOut" }}
+                className="block h-1 rounded-full"
+              />
+            </button>
           ))}
         </div>
       )}
