@@ -1,39 +1,105 @@
-<<<<<<< HEAD
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Portfolio Dhesta Irham Prasetya
 
-## Getting Started
+Website portfolio pribadi untuk menampilkan profil, keahlian, proses kerja, perjalanan belajar, dan proyek pilihan dalam pengalaman scrollytelling interaktif.
 
-First, run the development server:
+Live website: portofolio-dhesta.vercel.app
 
-```bash
+Tentang Proyek
+
+Portfolio ini dibangun sebagai pusat dokumentasi karya Dhesta Irham Prasetya, mahasiswa Sistem Informasi yang berfokus pada web development dan UI/UX design.
+
+Website menggabungkan tata letak responsif, animasi berbasis scroll, image-sequence canvas, galeri proyek, serta akses langsung ke CV, dokumen portfolio, repository, dan demo proyek.
+
+Fitur Utama
+
+Hero interaktif dengan animasi scrollytelling.
+
+Profil, fokus keahlian, dan pendekatan kerja.
+
+Daftar teknologi dan tools yang digunakan.
+
+Showcase proyek dengan slideshow dan modal detail.
+
+Galeri gambar, fitur utama, teknologi, repository, dan demo setiap proyek.
+
+Timeline perjalanan akademik dan pengembangan keterampilan.
+
+Preview dan unduhan CV serta portfolio PDF.
+
+Navigasi responsif untuk desktop dan perangkat mobile.
+
+Dukungan preferensi reduced motion dan reduced transparency.
+
+Teknologi
+
+Next.js 16
+
+React 19
+
+TypeScript
+
+Tailwind CSS 4
+
+Motion
+
+Lenis
+
+HTML5 Canvas
+
+Lucide React
+
+Menjalankan Proyek Secara Lokal
+
+Pastikan Node.js dan npm sudah terpasang, kemudian jalankan:
+
+git clone https://github.com/Dstz88/Portofolio.git
+cd Portofolio
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Buka http://localhost:3000 melalui browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Pemeriksaan Kualitas
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Jalankan pemeriksaan lint:
 
-## Learn More
+npm run lint
 
-To learn more about Next.js, take a look at the following resources:
+Jalankan production build:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+npm run build
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Struktur Utama
 
-## Deploy on Vercel
+app/          Halaman, layout, metadata, dan global styles
+components/   Komponen antarmuka dan bagian halaman
+data/         Konten profil dan data proyek
+hooks/        Custom hooks untuk canvas dan image sequence
+lib/          Konfigurasi utilitas seperti Lenis
+public/       Gambar, sequence frames, CV, dan portfolio PDF
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Proyek yang Ditampilkan
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-=======
-# Portofolio
+Rumah Bunga Cirebon
+
+SwapSkill
+
+CIREVA
+
+Inventory Bengkel
+
+Coffee Shop Management
+
+Deployment
+
+Website dideploy menggunakan Vercel. Perubahan pada branch utama dapat dipublikasikan melalui integrasi repository GitHub dan Vercel.
+
+Kontak
+
+GitHub: @Dstz88
+
+Email: desxz48@gmail.com
+
+Instagram: @dsstaa_ip
+
+© 2026 Dhesta Irham Prasetya.
