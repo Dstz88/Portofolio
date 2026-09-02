@@ -27,7 +27,7 @@ export interface TimelineEvent {
 export interface SocialLink {
   label: string;
   href: string;
-  iconName: "github" | "linkedin" | "instagram" | "email";
+  iconName: "github" | "instagram" | "email";
 }
 
 export interface ApproachStep {
@@ -104,8 +104,7 @@ export const portfolioData = {
 
   socials: [
     { label: "GitHub", href: "https://github.com/Dstz88", iconName: "github" },
-    { label: "LinkedIn", href: "https://linkedin.com", iconName: "linkedin" },
-    { label: "Instagram", href: "https://www.instagram.com/dsstaa_ip?igsh=ajI4aG1jYXkzOXAy&utm_source=qr", iconName: "instagram" },
+    { label: "Instagram", href: "https://www.instagram.com/dsstaa_ip/", iconName: "instagram" },
     { label: "Email", href: "mailto:desxz48@gmail.com", iconName: "email" },
   ] as SocialLink[],
 

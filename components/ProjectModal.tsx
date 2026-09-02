@@ -222,7 +222,7 @@ export function ProjectModal({
                     <a
                       href={project.demo}
                       target="_blank"
-                      rel="noreferrer"
+                      rel="noopener noreferrer"
                       className="flex min-h-11 items-center justify-center gap-2 rounded-xl bg-[#6EE7F9] px-4 py-3 text-xs font-semibold text-black transition-colors hover:bg-[#9aeeFA] active:scale-[0.98] sm:px-6"
                     >
                       <span>Lihat Proyek</span>
@@ -232,7 +232,7 @@ export function ProjectModal({
                   <a
                     href={project.github}
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noopener noreferrer"
                     className="flex min-h-11 items-center justify-center gap-2 rounded-xl border border-white/15 px-4 py-3 font-mono text-xs text-white transition-colors hover:border-[#6EE7F9]/40 hover:text-[#6EE7F9] active:scale-[0.98] sm:px-6"
                   >
                     <Code2 className="w-4 h-4" />

@@ -154,7 +154,7 @@ export const projectsData: Project[] = [
       "Daily & Monthly Sales Reports",
       "Table & Takeaway Order Modes",
     ],
-    github: "https://github.com/Dstz88/Coffe-Shop-Manajement",
+    github: "https://github.com/Dstz88/Coffe-POS",
     demo: null,
     featured: true,
   },

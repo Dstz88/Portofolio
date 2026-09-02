@@ -1,11 +1,10 @@
 "use client";
 
-import { ArrowUp, Code2, Mail, Globe, Share2 } from "lucide-react";
+import { ArrowUp, Code2, Mail, Globe } from "lucide-react";
 import { portfolioData } from "@/data/portfolio";
 
 const iconMap = {
   github: Code2,
-  linkedin: Share2,
   instagram: Globe,
   email: Mail,
 };
@@ -35,12 +34,13 @@ export default function Footer() {
           <div className="flex items-center gap-4 flex-wrap">
             {socials.map((s) => {
               const Icon = iconMap[s.iconName] || Globe;
+              const opensNewTab = !s.href.startsWith("mailto:");
               return (
                 <a
                   key={s.label}
                   href={s.href}
-                  target="_blank"
-                  rel="noreferrer"
+                  target={opensNewTab ? "_blank" : undefined}
+                  rel={opensNewTab ? "noopener noreferrer" : undefined}
                   className="p-3 rounded-full glass-card hover:bg-[#6EE7F9] hover:text-black text-gray-300 transition-all flex items-center justify-center group"
                   aria-label={s.label}
                 >

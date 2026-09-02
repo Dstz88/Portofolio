@@ -67,7 +67,7 @@ function ProjectCard({ project, index, featured, onSelect }: {
               <a
                 href={project.demo}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-[#6EE7F9] px-5 py-3 text-xs font-bold text-[#050505] transition-colors hover:bg-[#9aeeFA] active:scale-[0.98]"
               >
                 <span>Lihat Demo</span>
@@ -87,7 +87,7 @@ function ProjectCard({ project, index, featured, onSelect }: {
             <a
               href={project.github}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-white/20 bg-white/5 px-4 py-3 font-mono text-xs text-gray-100 transition-colors hover:border-[#6EE7F9]/45 hover:bg-[#6EE7F9]/10 hover:text-[#6EE7F9] active:scale-[0.98]"
               aria-label={`Buka repository ${project.title}`}
             >

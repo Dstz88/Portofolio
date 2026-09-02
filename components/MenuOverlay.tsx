@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "motion/react";
-import { X, ArrowUpRight, Code2, Mail, Globe, Share2 } from "lucide-react";
+import { X, ArrowUpRight, Code2, Mail, Globe } from "lucide-react";
 import { portfolioData } from "@/data/portfolio";
 
 interface MenuOverlayProps {
@@ -20,7 +20,6 @@ const menuItems = [
 
 const iconMap = {
   github: Code2,
-  linkedin: Share2,
   instagram: Globe,
   email: Mail,
 };
@@ -115,12 +114,14 @@ export default function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
             <div className="flex items-center gap-6">
               {socials.map((social) => {
                 const Icon = iconMap[social.iconName] || Globe;
+                const opensNewTab = !social.href.startsWith("mailto:");
                 return (
                   <a
                     key={social.label}
                     href={social.href}
-                    target="_blank"
-                    rel="noreferrer"
+                    target={opensNewTab ? "_blank" : undefined}
+                    rel={opensNewTab ? "noopener noreferrer" : undefined}
+                    aria-label={social.label}
                     className="flex items-center gap-2 text-sm text-gray-400 hover:text-[#6EE7F9] transition-colors"
                   >
                     <Icon className="w-4 h-4" />
