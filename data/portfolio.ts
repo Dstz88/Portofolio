@@ -8,17 +8,6 @@ export interface SkillCategory {
   skills: SkillItem[];
 }
 
-export interface Project {
-  id: string;
-  title: string;
-  category: string;
-  description: string;
-  tech: string[];
-  demoUrl: string;
-  githubUrl: string;
-  gradient: string;
-}
-
 export interface StatItem {
   value: number;
   suffix: string;
@@ -184,59 +173,6 @@ export const portfolioData = {
       ],
     },
   ] as SkillCategory[],
-
-  projects: [
-    {
-      id: "01",
-      title: "Sistem Informasi POS & Inventaris Bengkel ",
-      category: "Laravel Web App / UI/UX Design",
-      description: "Aplikasi manajemen kasir dan stok barang berbasis Laravel & MySQL dengan antarmuka Figma kustom, laporan real-time, dan REST API.",
-      tech: ["Laravel", "PHP", "MySQL", "Tailwind CSS", "REST API", "Figma"],
-      demoUrl: "https://github.com/Dstz88/Bengkel-Manajement/tree/main",
-      githubUrl: "https://github.com/Dstz88/Bengkel-Manajement",
-      gradient: "from-cyan-500/20 via-blue-600/20 to-purple-600/20",
-    },
-    {
-      id: "02",
-      title: "Portal E-Commerce & Payment Gateway",
-      category: "Fullstack Laravel / UI/UX",
-      description: "Platform belanja online responsif yang diintegrasikan dengan Payment Gateway, antarmuka modern Blade & Tailwind CSS, serta dashboard admin interaktif.",
-      tech: ["Laravel", "Blade", "MySQL", "JavaScript", "Tailwind CSS", "Figma"],
-      demoUrl: "#",
-      githubUrl: "https://github.com",
-      gradient: "from-purple-500/20 via-pink-600/20 to-rose-600/20",
-    },
-    {
-      id: "03",
-      title: "Redesain UI/UX & Portal Layanan Publik",
-      category: "UI/UX Design & Frontend",
-      description: "Studi kasus alur pengalaman pengguna lengkap mulai dari wireframing, prototipe Figma interaktif, hingga implementasi front-end responsif berbasis Blade & Tailwind.",
-      tech: ["Figma", "Wireframing", "Prototyping", "Design System", "Tailwind CSS", "HTML5"],
-      demoUrl: "#",
-      githubUrl: "https://github.com",
-      gradient: "from-emerald-500/20 via-teal-600/20 to-cyan-600/20",
-    },
-    {
-      id: "04",
-      title: "Sistem Presensi SDM Berbasis QR Code",
-      category: "Laravel Web App & REST API",
-      description: "Sistem kepegawaian modern dengan fitur pemindaian QR Code, pelaporan absensi otomatis, ekspor PDF/Excel, dan RESTful API untuk integrasi mobile.",
-      tech: ["Laravel", "PHP", "MySQL", "REST API", "JavaScript", "Postman"],
-      demoUrl: "#",
-      githubUrl: "https://github.com",
-      gradient: "from-amber-500/20 via-orange-600/20 to-red-600/20",
-    },
-    {
-      id: "05",
-      title: "Design System & Component Library",
-      category: "UI/UX Design & System",
-      description: "Sistem desain modular komprehensif di Figma dan implementasi pustaka komponen UI Blade + Tailwind CSS untuk aplikasi web enterprise modern.",
-      tech: ["Figma", "Design System", "Tailwind CSS", "Blade", "CSS3"],
-      demoUrl: "#",
-      githubUrl: "https://github.com",
-      gradient: "from-[#6EE7F9]/20 via-indigo-600/20 to-blue-600/20",
-    },
-  ] as Project[],
 
   timeline: [
     {
